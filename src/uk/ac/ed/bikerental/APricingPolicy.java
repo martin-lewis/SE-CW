@@ -45,16 +45,16 @@ public class APricingPolicy implements PricingPolicy {
         
         BigDecimal price = new BigDecimal(0); //Sets a price value to add the price of each bike to
         
-        for (Iterator<Bike> iterator = bikes.iterator(); iterator.hasNext();) { //Iterator that runs over the collection of bikes
-            price = price.add(iterator.next().getBikeType().getDailyPrice()); //adds to price the price of the next bike in the collection
+        for (Bike aBike: bikes) { //Iterator that runs over the collection of bikes
+            price = price.add(aBike.getBikeType().getDailyPrice()); //adds to price the price of the next bike in the collection
         }
         
         BigDecimal length = new BigDecimal(duration.toDays());
         price = price.multiply(length); //Multiplies by the length of the bike hire
         
         BigDecimal oneHundred = new BigDecimal(100); //Makes a big decimal of 100
-        BigDecimal discountDecimal = new BigDecimal(discount); //Makes a big decimal of the discount
-        discountDecimal = discountDecimal.divide(oneHundred); //Turns the discount into a percentage
+        BigDecimal discountDecimal = new BigDecimal(100 - discount); //Uses discount to get final price as a percentage of original in BigDecimal form
+        discountDecimal = discountDecimal.divide(oneHundred); //Turns discount decimal into a multiplier for a price
         
         price = price.multiply(discountDecimal); //Multiplies the full calculated price by the percentage
         

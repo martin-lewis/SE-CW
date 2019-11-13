@@ -21,7 +21,9 @@ public class PricingPolicyTests {
     void setUp() throws Exception {
         testPolicy = new APricingPolicy();
         
+        
         dates = new DateRange(LocalDate.of(2019,10,1),LocalDate.of(2019,10,5));
+        System.out.println(dates.toDays());
         
         BigDecimal testPrice = new BigDecimal(50);
         BikeType testType = new BikeType(testPrice);
@@ -36,7 +38,7 @@ public class PricingPolicyTests {
     public void noDiscount() {
         BigDecimal calcVal = testPolicy.calculatePrice(testBikes, dates);
         System.out.print(calcVal);
-        BigDecimal actualVal = new BigDecimal(2500);
+        BigDecimal actualVal = new BigDecimal(2000);
         assertEquals(calcVal.stripTrailingZeros(), actualVal.stripTrailingZeros());
     }
 }
