@@ -49,6 +49,9 @@ public class APricingPolicy implements PricingPolicy {
             price = price.add(iterator.next().getBikeType().getDailyPrice()); //adds to price the price of the next bike in the collection
         }
         
+        BigDecimal length = new BigDecimal(duration.toDays());
+        price = price.multiply(length); //Multiplies by the length of the bike hire
+        
         BigDecimal oneHundred = new BigDecimal(100); //Makes a big decimal of 100
         BigDecimal discountDecimal = new BigDecimal(discount); //Makes a big decimal of the discount
         discountDecimal = discountDecimal.divide(oneHundred); //Turns the discount into a percentage

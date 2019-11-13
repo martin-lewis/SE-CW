@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import org.junit.jupiter.api.*;
 
@@ -34,7 +33,10 @@ public class PricingPolicyTests {
     
     // TODO: Write tests for pricing policies
     @Test
-    public void test1() {
-        BigDecmial calcVal = testPolicy.calculatePrice(testBikes, dates)
+    public void noDiscount() {
+        BigDecimal calcVal = testPolicy.calculatePrice(testBikes, dates);
+        System.out.print(calcVal);
+        BigDecimal actualVal = new BigDecimal(2500);
+        assertEquals(calcVal.stripTrailingZeros(), actualVal.stripTrailingZeros());
     }
 }
