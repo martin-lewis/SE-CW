@@ -56,6 +56,8 @@ public class PricingPolicyTests {
         BigDecimal calcVal = testPolicy.calculatePrice(testBikes, dates);
         actualVal = new BigDecimal(0);
         assertEquals(calcVal.stripTrailingZeros(), actualVal.stripTrailingZeros());
+    }
+    @Test
     public void addingDiscount() {   // Tests when adding a new discount
         testPolicy.setDiscount((long)1, 10);
         BigDecimal calcVal = testPolicy.calculatePrice(testBikes, dates);
@@ -70,6 +72,7 @@ public class PricingPolicyTests {
         actualVal = new BigDecimal(16000);
         assertEquals(calcVal.stripTrailingZeros(), actualVal.stripTrailingZeros());
     }
+    @Test
     public void multipleDiscounts() { //Checks with multiple levels of discounts
         testPolicy.setDiscount((long) 4, 10); //Sets two discounts
         testPolicy.setDiscount((long) 6, 15);
@@ -89,6 +92,5 @@ public class PricingPolicyTests {
         actualVal = new BigDecimal(4250);
         assertEquals(calcVal.stripTrailingZeros(), actualVal.stripTrailingZeros());
     }
-    @Test
     
 }
