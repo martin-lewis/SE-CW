@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class TestDateRange {
-    private DateRange dateRange1, dateRange2, dateRange3;
+    private DateRange dateRange1, dateRange2, dateRange3, dateRange4;
 
     @BeforeEach
     void setUp() throws Exception {
@@ -18,6 +18,8 @@ class TestDateRange {
         this.dateRange2 = new DateRange(LocalDate.of(2019, 1, 5),
                 LocalDate.of(2019, 1, 23));
         this.dateRange3 = new DateRange(LocalDate.of(2015, 1, 7),
+                LocalDate.of(2018, 1, 10));
+        this.dateRange4 = new DateRange(LocalDate.of(2015, 1, 7),
                 LocalDate.of(2018, 1, 10));
     }
 
@@ -44,6 +46,11 @@ class TestDateRange {
         // TODO: check we can see when two date ranges  don't overlap
         boolean overlaps = this.dateRange1.overlaps(this.dateRange3);
         assertEquals(overlaps, false);
+    }
+    
+    @Test
+    void testEquals() {
+        assertTrue(this.dateRange3.equals(this.dateRange4));
     }
 
     // TODO: put some of your own unit tests here
