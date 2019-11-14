@@ -12,6 +12,9 @@ import java.util.function.BooleanSupplier;
  */
 
 public class DateRange {
+    /**
+     * The dates for the start and end dates
+     */
     private LocalDate start, end;
     
     
