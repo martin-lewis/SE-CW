@@ -12,25 +12,46 @@ import java.util.function.BooleanSupplier;
  */
 
 public class DateRange {
+    /**
+     * The dates for the start and end dates
+     */
     private LocalDate start, end;
     
+    
+    /**
+     * Constructor that takes two dates to make the range
+     * @param start LocalDate for the starting date of the range
+     * @param end LocalDate for the ending date of the range
+     */
     public DateRange(LocalDate start, LocalDate end) {
         this.start = start;
         this.end = end;
     }
-    
+    /**
+     * Getter for start
+     * @return Starting LocalDate of the range
+     */
     public LocalDate getStart() {
         return this.start;
     }
-    
+    /**
+     * Getter for end
+     * @return Ending LocalDate of the range
+     */
     public LocalDate getEnd() {
         return this.end;
     }
-
+    /**
+     * Calculates the number of years between the two dates
+     * @return Long containing the number of years
+     */
     public long toYears() {
         return ChronoUnit.YEARS.between(this.getStart(), this.getEnd());
     }
-
+    /**
+     * Calculates the number of days between the two dates
+     * @return Long of the number of days
+     */
     public long toDays() {
         return ChronoUnit.DAYS.between(this.getStart(), this.getEnd());
     }
@@ -49,13 +70,20 @@ public class DateRange {
         }
         return false;
     }
-
+    /**
+     * Method returns the hash code of the DateRange object
+     * @return Hash to represent the objects
+     */
     @Override
     public int hashCode() {
         // hashCode method allowing use in collections
         return Objects.hash(end, start);
     }
-
+    /**
+     * Overridden equals function which checks if the start and end dates in both are the same
+     * @param obj An object of any type, should be a DateRange object or it will return false
+     * @return Boolean representing if they are the same object or not
+     */
     @Override
     public boolean equals(Object obj) {
         // equals method for testing equality in tests
