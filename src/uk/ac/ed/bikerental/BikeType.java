@@ -11,7 +11,8 @@ public class BikeType {
     
     /**
      * Constructor for BikeType taking a dailyPrice
-     * @param dailyPrice
+     * @param dailyPrice The daily price to hire the bike type
+     * @param replacementValue The replacement value of the bike type
      */
     BikeType(BigDecimal dailyPrice, BigDecimal replacementValue) {
         this.dailyPrice = dailyPrice;

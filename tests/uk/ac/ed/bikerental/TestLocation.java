@@ -17,6 +17,18 @@ class TestLocation {
         Location a2 = new Location("EH14 H7Y", "some address");
         assertTrue(a1.isNearTo(a2));
     }
+    @Test
+    public void testToUpper() { //tests that isNear still works with inconsistent capitalisation
+        Location a1 = new Location("eH12 5JH", "an address");
+        Location a2 = new Location("Eh14 H7Y", "some address");
+        assertTrue(a1.isNearTo(a2));
+    }
+    @Test
+    public void testOneCharacter() { //tests postcodes with a one character region code
+        Location a1 = new Location("e12 5JH", "an address");
+        Location a2 = new Location("E14 H7Y", "some address");
+        assertTrue(a1.isNearTo(a2));
+    }
     
     @Test
     public void isNearFalse() {
