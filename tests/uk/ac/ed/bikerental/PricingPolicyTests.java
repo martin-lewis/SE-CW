@@ -56,6 +56,12 @@ public class PricingPolicyTests {
         BigDecimal calcVal = testPolicy.calculatePrice(testBikes, dates);
         actualVal = new BigDecimal(0);
         assertEquals(calcVal.stripTrailingZeros(), actualVal.stripTrailingZeros());
+    public void addingDiscount() {   // Tests when adding a new discount
+        testPolicy.setDiscount((long)1, 10);
+        BigDecimal calcVal = testPolicy.calculatePrice(testBikes, dates);
+        BigDecimal actualVal = new BigDecimal(2250);
+        assertEquals(calcVal.stripTrailingZeros(), actualVal.stripTrailingZeros());
+        
     }
     @Test
     public void multiMonthDateRange() {
@@ -64,6 +70,25 @@ public class PricingPolicyTests {
         actualVal = new BigDecimal(16000);
         assertEquals(calcVal.stripTrailingZeros(), actualVal.stripTrailingZeros());
     }
-    
+    public void multipleDiscounts() { //Checks with multiple levels of discounts
+        testPolicy.setDiscount((long) 4, 10); //Sets two discounts
+        testPolicy.setDiscount((long) 6, 15);
+        //Testing
+        dates = new DateRange(LocalDate.of(2019,10,1),LocalDate.of(2019,10,2)); //Sets the dates <4
+        BigDecimal calcVal = testPolicy.calculatePrice(testBikes, dates);
+        BigDecimal actualVal = new BigDecimal(1000);
+        assertEquals(calcVal.stripTrailingZeros(), actualVal.stripTrailingZeros());
+        
+        dates = new DateRange(LocalDate.of(2019,10,1),LocalDate.of(2019,10,5)); //Sets the dates 5
+        calcVal = testPolicy.calculatePrice(testBikes, dates);
+        actualVal = new BigDecimal(2250);
+        assertEquals(calcVal.stripTrailingZeros(), actualVal.stripTrailingZeros());
+        
+        dates = new DateRange(LocalDate.of(2019,10,1),LocalDate.of(2019,10,10)); //Sets the dates >6
+        calcVal = testPolicy.calculatePrice(testBikes, dates);
+        actualVal = new BigDecimal(4250);
+        assertEquals(calcVal.stripTrailingZeros(), actualVal.stripTrailingZeros());
+    }
+    @Test
     
 }
