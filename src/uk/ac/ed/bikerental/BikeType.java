@@ -5,11 +5,19 @@ import java.util.Objects;
 
 public class BikeType {
     
-    BikeType(BigDecimal dailyPrice) {
-        this.dailyPrice = dailyPrice;
-    }
     
     private BigDecimal dailyPrice;
+    private BigDecimal replacementValue;
+    
+    /**
+     * Constructor for BikeType taking a dailyPrice
+     * @param dailyPrice
+     */
+    BikeType(BigDecimal dailyPrice, BigDecimal replacementValue) {
+        this.dailyPrice = dailyPrice;
+        this.replacementValue = replacementValue;
+    }  
+    
     
     public BigDecimal getDailyPrice() {
         return this.dailyPrice;
@@ -19,9 +27,11 @@ public class BikeType {
         this.dailyPrice = newPrice;
     }
     
+    public void setReplacementValue(BigDecimal newPrice) {
+        this.replacementValue = newPrice;
+    }
+    
     public BigDecimal getReplacementValue() {
-        // TODO: Implement Bike.getReplacementValue
-        assert false;
-        return null;
+        return this.replacementValue;
     }
 }
