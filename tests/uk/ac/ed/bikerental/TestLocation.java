@@ -10,4 +10,18 @@ class TestLocation {
     }
     
     // TODO: put some tests here
+    
+    @Test
+    public void isNearTrue() {
+        Location a1 = new Location("EH12 5JH", "an address");
+        Location a2 = new Location("EH14 H7Y", "some address");
+        assertTrue(a1.isNearTo(a2));
+    }
+    
+    @Test
+    public void isNearFalse() {
+        Location a1 = new Location("NG12 5JH", "an address");
+        Location a2 = new Location("EH14 H7Y", "some address");
+        assertFalse(a1.isNearTo(a2));
+    }
 }
