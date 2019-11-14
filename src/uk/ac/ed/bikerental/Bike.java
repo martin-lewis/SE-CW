@@ -12,7 +12,10 @@ public class Bike {
     Bike (BikeType bikeType) {
         this.bikeType = bikeType;
     }
-    
+    /**
+     * Getter for the Bikes BikeType
+     * @return A BikeType object
+     */
     public BikeType getType() {
         return bikeType;
     }
