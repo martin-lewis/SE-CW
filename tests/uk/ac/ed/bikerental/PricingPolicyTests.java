@@ -53,9 +53,7 @@ public class PricingPolicyTests {
     @Test
     public void negativeDateRange() {   // Tests for when the starting date comes after the ending date
         dates = new DateRange(LocalDate.of(2019,10,5),LocalDate.of(2019,10,4));
-        BigDecimal calcVal = testPolicy.calculatePrice(testBikes, dates);
-        actualVal = new BigDecimal(0);
-        assertEquals(calcVal.stripTrailingZeros(), actualVal.stripTrailingZeros());
+        assertThrows(AssertionError.class, () -> testPolicy.calculatePrice(testBikes, dates));
     }
     @Test
     public void addingDiscount() {   // Tests when adding a new discount
@@ -91,6 +89,11 @@ public class PricingPolicyTests {
         calcVal = testPolicy.calculatePrice(testBikes, dates);
         actualVal = new BigDecimal(4250);
         assertEquals(calcVal.stripTrailingZeros(), actualVal.stripTrailingZeros());
+    }
+    @Test
+    public void nullBikes() {
+        testBikes = null;
+        assertThrows(AssertionError.class, () -> testPolicy.calculatePrice(testBikes, dates));
     }
     
 }

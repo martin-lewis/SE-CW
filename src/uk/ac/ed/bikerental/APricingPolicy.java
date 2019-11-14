@@ -37,9 +37,10 @@ public class APricingPolicy implements PricingPolicy {
         bikeType.setDailyPrice(dailyPrice);
         
     }
-    //TODO: add an assertion that duration is non-negative
     @Override
     public BigDecimal calculatePrice(Collection<Bike> bikes, DateRange duration) {
+        assert(duration.toDays() >= 0); //Duration start should be before end
+        assert(bikes != null);
         
         int discount = getDiscount(duration.toDays()); //This gets the discount for the length of the booking
         
