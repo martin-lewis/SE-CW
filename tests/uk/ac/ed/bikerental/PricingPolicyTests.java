@@ -21,8 +21,7 @@ public class PricingPolicyTests {
     @BeforeEach
     void setUp() throws Exception {
         testPolicy = new APricingPolicy();       
-        dates = new DateRange(LocalDate.of(2019,10,1),LocalDate.of(2019,10,5)); 
-        System.out.println(dates.toDays()); //toDays() seems to give number of days -1? Possibly doesn't consider the end or the start as a day       
+        dates = new DateRange(LocalDate.of(2019,10,1),LocalDate.of(2019,10,5));       
         BigDecimal testPrice = new BigDecimal(50);
         BikeType testType = new BikeType(testPrice);
         testBikes = new ArrayList<Bike>();
@@ -35,15 +34,18 @@ public class PricingPolicyTests {
     @Test
     public void noDiscount() {
         BigDecimal calcVal = testPolicy.calculatePrice(testBikes, dates);
-        System.out.print(calcVal);
         assertEquals(calcVal.stripTrailingZeros(), actualVal.stripTrailingZeros());
     }
     @Test
-    public void noBikes() {
+    public void noBikes() {     // Tests for an empty arrayList
         testBikes = new ArrayList<Bike>();
         BigDecimal calcVal = testPolicy.calculatePrice(testBikes, dates);
         actualVal = new BigDecimal(0);
         assertEquals(calcVal.stripTrailingZeros(), actualVal.stripTrailingZeros());
+    }
+    @Test
+    public void negativeDateRange() {   // Tests for when the starting date comes after the ending date
+        
     }
     
     
