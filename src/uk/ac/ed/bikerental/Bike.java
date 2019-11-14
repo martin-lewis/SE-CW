@@ -8,15 +8,8 @@ public class Bike {
         this.bikeType = bikeType;
     }
     
-    public BikeType getBikeType() {
+    public BikeType getType() {
         return bikeType;
     }
 
-
-
-    public BikeType getType() {
-        // TODO: Implement Bike.getType
-        assert false;
-        return null;
-    }
 }
