@@ -27,10 +27,10 @@ public class Location {
      * @return true if the two locations are near each other
      */
     public boolean isNearTo(Location other) {
-        char thisFirstDigit = this.postcode.charAt(0);
-        char thisSecondDigit = this.postcode.charAt(1);
-        char otherFirstDigit = other.postcode.charAt(0);
-        char otherSecondDigit = other.postcode.charAt(1);
+        char thisFirstDigit = Character.toUpperCase(this.postcode.charAt(0));
+        char thisSecondDigit = Character.toUpperCase(this.postcode.charAt(1));
+        char otherFirstDigit = Character.toUpperCase(other.postcode.charAt(0));
+        char otherSecondDigit = Character.toUpperCase(other.postcode.charAt(1));
         return((thisFirstDigit == otherFirstDigit) && (thisSecondDigit == otherSecondDigit));
     }
     /**
