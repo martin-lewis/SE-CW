@@ -5,6 +5,12 @@ import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 import java.util.function.BooleanSupplier;
 
+/**
+ * This class is used to hold a date range made up of a start
+ * and end date, it also includes several methods handle and work
+ * with these objects
+ */
+
 public class DateRange {
     private LocalDate start, end;
     
@@ -28,7 +34,11 @@ public class DateRange {
     public long toDays() {
         return ChronoUnit.DAYS.between(this.getStart(), this.getEnd());
     }
-
+    /**
+     * This method takes another DateRange and checks if this date range and the given date range overlap
+     * @param other Another DateRange object
+     * @return Boolean value true or false if it overlaps or not
+     */
     public Boolean overlaps(DateRange other) {
         // TODO: implement date range intersection checking
         assert false;
