@@ -37,7 +37,7 @@ public class APricingPolicy implements PricingPolicy {
         bikeType.setDailyPrice(dailyPrice);
         
     }
-
+    //TODO: add an assertion that duration is non-negative
     @Override
     public BigDecimal calculatePrice(Collection<Bike> bikes, DateRange duration) {
         

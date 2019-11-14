@@ -44,8 +44,25 @@ public class PricingPolicyTests {
         assertEquals(calcVal.stripTrailingZeros(), actualVal.stripTrailingZeros());
     }
     @Test
+    public void zeroDateRange() {   //Tests when start date is same as end date
+        dates = new DateRange(LocalDate.of(2019,10,5),LocalDate.of(2019,10,5));
+        BigDecimal calcVal = testPolicy.calculatePrice(testBikes, dates);
+        actualVal = new BigDecimal(500);
+        assertEquals(calcVal.stripTrailingZeros(), actualVal.stripTrailingZeros());
+    }
+    @Test
     public void negativeDateRange() {   // Tests for when the starting date comes after the ending date
-        
+        dates = new DateRange(LocalDate.of(2019,10,5),LocalDate.of(2019,10,4));
+        BigDecimal calcVal = testPolicy.calculatePrice(testBikes, dates);
+        actualVal = new BigDecimal(0);
+        assertEquals(calcVal.stripTrailingZeros(), actualVal.stripTrailingZeros());
+    }
+    @Test
+    public void multiMonthDateRange() {
+        dates = new DateRange(LocalDate.of(2019,10,1),LocalDate.of(2019,11,1));
+        BigDecimal calcVal = testPolicy.calculatePrice(testBikes, dates);
+        actualVal = new BigDecimal(16000);
+        assertEquals(calcVal.stripTrailingZeros(), actualVal.stripTrailingZeros());
     }
     
     
