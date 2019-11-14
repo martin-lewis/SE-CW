@@ -22,7 +22,7 @@ public class PricingPolicyTests {
         testPolicy = new APricingPolicy();
         
         
-        dates = new DateRange(LocalDate.of(2019,10,1),LocalDate.of(2019,10,6)); 
+        dates = new DateRange(LocalDate.of(2019,10,1),LocalDate.of(2019,10,5)); 
         System.out.println(dates.toDays()); //toDays() seems to give number of days -1? Possibly doesn't consider the end or the start as a day
         
         BigDecimal testPrice = new BigDecimal(50);
