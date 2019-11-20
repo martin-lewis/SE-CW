@@ -7,6 +7,27 @@ public class Controller {
     private ArrayList<Provider> providers;
     private DeliveryService deliveryService;
     
+    public Controller(ArrayList<Provider> providers, DeliveryService del) {
+        this.providers = providers;
+        this.deliveryService = del;
+    }
+    
+    public ArrayList<Provider> getProviders() {
+        return providers;
+    }
+
+    public void setProviders(ArrayList<Provider> providers) {
+        this.providers = providers;
+    }
+
+    public DeliveryService getDeliveryService() {
+        return deliveryService;
+    }
+
+    public void setDeliveryService(DeliveryService deliveryService) {
+        this.deliveryService = deliveryService;
+    }
+
     /**
      * Registers the return of a booking to its provider
      * @return A BigDecimal representing the deposit owed in pounds
@@ -60,11 +81,11 @@ public class Controller {
             }
         }
         
-        for (Provider provider : inRangeProviders) {
-            ArrayList<Bike> availableBikes = new ArrayList<Bike>();
-            availableBikes = provider.getAvailableBikes(noBikes, types, dates);
-            if (availableBikes != null) {
-                BigDecimal hirePrice = provider.calculateHirePrice(availableBikes, dates);
+        for (Provider provider : inRangeProviders) { //For each found provider in range
+            ArrayList<Bike> availableBikes = new ArrayList<Bike>(); //List to hold return
+            availableBikes = provider.getAvailableBikes(noBikes, types, dates); //Gets the bikes the provider has available
+            if (availableBikes != null) { //If the bikes is null there are no bikes so if its not null and there are
+                BigDecimal hirePrice = provider.calculateHirePrice(availableBikes, dates); //Calculates hirePrice
                 BigDecimal deposit = provider.calculateDeposit(availableBikes);
                 Quote newQuote = new Quote(availableBikes, provider, dates, hirePrice, deposit);
                 quotes.add(newQuote);
