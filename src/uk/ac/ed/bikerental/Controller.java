@@ -143,6 +143,7 @@ public class Controller {
         
         provider.addBooking(booking); //Adds the booking to provider
         provider.setBikesUnavailable(bikes, dates); //Sets the bikes unavailable
+        customer.addBooking(booking); //Adds the booking to the customer
         Location providerAddress = provider.getAddress(); //Gets the providers address
         
         //SCHEDULE DELIVERY
