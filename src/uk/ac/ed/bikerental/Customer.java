@@ -16,6 +16,35 @@ public class Customer {
      */
     private ArrayList<Booking> bookings;
     
+    /**
+     * Constructor for customer setting all information fields directly.
+     * Initialises an empty list of bookings.
+     * @param firstName
+     * @param lastName
+     * @param email
+     * @param phoneNumber
+     * @param address
+     */
+    public Customer(String firstName, String lastName, String email, String phoneNumber, Location address) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.bookings = new ArrayList<Booking>();
+    }
+    
+    /**
+     * Adds a booking to the system. If you pass in a null booking there
+     * will be an assertionError
+     * @param booking 
+     */
+    public void addBooking(Booking booking){
+        assert(booking != null); 
+        bookings.add(booking);   
+    }
+    
+    //Getters and setters
     public String getFirstName() {
         return firstName;
     }
@@ -46,8 +75,11 @@ public class Customer {
     public void setAddress(Location address) {
         this.address = address;
     }
+    // There is no booking remover, as we assume bookings live forever (so
+    // you can see them later)
     public ArrayList<Booking> getBookings() {
         return bookings;
     } 
+    
     
 }
