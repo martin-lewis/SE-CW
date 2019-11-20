@@ -48,16 +48,16 @@ public class Provider {
      * @return ArrayList of size noBikes is bikes are found or null if not enough bikes are available
      */
     public ArrayList<Bike> getAvailableBikes(int noBikes, ArrayList<String> types, DateRange duration ){
-        ArrayList<Bike> availableBikes = new ArrayList<Bike>();
-        for (Bike bike : this.bikeList) {
-            if ((types.contains(bike.getGenericType())) && (bike.isAvailable(duration))) {
+        ArrayList<Bike> availableBikes = new ArrayList<Bike>(); //New array list to hold available bikes
+        for (Bike bike : this.bikeList) { //Runs over all the providers bikes
+            if ((types.contains(bike.getGenericType())) && (bike.isAvailable(duration))) { //If it fits the requirements
                 availableBikes.add(bike);
             }
         }
-        if (availableBikes.size() >= noBikes) {
-            return (ArrayList<Bike>) availableBikes.subList(0, noBikes - 1);
+        if (availableBikes.size() >= noBikes) { //If we have enough bikes
+            return (ArrayList<Bike>) availableBikes.subList(0, noBikes - 1); //Send the required number
         } else {
-            return null;
+            return null; //If we don't have enough send none
         }
     }
     /**
@@ -66,6 +66,7 @@ public class Provider {
      * @param duration The duration for which the bikes should be set unavailable
      */
     public void setBikesUnavailable(ArrayList<Bike> bikes, DateRange duration) {
+        //Input validation later
         for (Bike bike : bikes) {
             bike.setUnavailable(duration);
         }
