@@ -182,6 +182,14 @@ public class Provider {
     public void setDepositPolicy(ValuationPolicy depositPolicy) {
         this.ValuationPolicy = depositPolicy;
     }
+    /**
+     * Sets the pricing in the pricing policy
+     * @param bikeType The bike type being looked at
+     * @param price The daily price to rent that bike type
+     */
+    public void setPricingInPolicy(BikeType bikeType, BigDecimal price) {
+        this.pricingPolicy.setDailyRentalPrice(bikeType, price);
+    }
     
     
 }
