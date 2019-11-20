@@ -41,7 +41,14 @@ public class Controller {
     private void sendEmail(String email, String address) {
         return;
     }
-    
+    /**
+     * 
+     * @param address
+     * @param dates
+     * @param types
+     * @param noBikes
+     * @return
+     */
     public ArrayList<Quote> getQuotes(Location address, DateRange dates, ArrayList<String> types, int noBikes){
         ArrayList<Quote> quotes = new ArrayList<Quote>(); //ArrayList to hold found quotes
         ArrayList<Provider> inRangeProviders = new ArrayList<Provider>(); //ArrayList to find all providers that are close
@@ -66,9 +73,31 @@ public class Controller {
         
         if (quotes.size() > 0) {
             return quotes;
+        } else {
+            for (int i = -3; i < 4; i++) {
+                if (i==0) {
+                    continue;
+                }
+                DateRange newDate = dates.shift(i);
+                
+                for (Provider provider : inRangeProviders) {
+                    ArrayList<Bike> availableBikes = new ArrayList<Bike>();
+                    availableBikes = provider.getAvailableBikes(noBikes, types, newDate);
+                    if (availableBikes != null) {
+                        BigDecimal hirePrice = provider.calculateHirePrice(availableBikes, newDate);
+                        BigDecimal deposit = provider.calculateDeposit(availableBikes);
+                        Quote newQuote = new Quote(availableBikes, provider, newDate, hirePrice, deposit);
+                        quotes.add(newQuote);
+                    }
+                }
+            }
+            if (quotes.size() > 0) {
+                return quotes;
+            } else {
+                return null;
+            }
         }
         
-        return quotes;
     }
 
 }
