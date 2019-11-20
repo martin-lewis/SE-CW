@@ -98,7 +98,11 @@ public class DateRange {
     }
     
     // You can add your own methods here
-    
+    /**
+     * Gives a new dateRange, shifted backwards or forwards by a number of days
+     * @param noDays The number of days you wish to shift by
+     * @return A new shifted dateRange
+     */
     public DateRange shift(int noDays) {
         LocalDate newStart = this.start.plus(noDays, ChronoUnit.DAYS);
         LocalDate newEnd = this.start.plus(noDays, ChronoUnit.DAYS);
