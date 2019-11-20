@@ -16,6 +16,7 @@ public class APricingPolicy implements PricingPolicy {
     public APricingPolicy () {
         policy = new HashMap<Long, Integer>();
         policy.put((long) 0, 0);
+        pricing = new HashMap<BikeType, BigDecimal>();
     }
     
     /**
