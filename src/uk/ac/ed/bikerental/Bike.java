@@ -24,6 +24,10 @@ public class Bike {
         this.bikeType = bikeType;
     }
     
+    public String getGenericType() {
+        return bikeType.getGenericType();
+    }
+    
     /**
      * Getter for the Bikes BikeType
      * @return A BikeType object
