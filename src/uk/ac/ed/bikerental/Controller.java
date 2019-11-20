@@ -41,5 +41,34 @@ public class Controller {
     private void sendEmail(String email, String address) {
         return;
     }
+    
+    public ArrayList<Quote> getQuotes(Location address, DateRange dates, ArrayList<String> types, int noBikes){
+        ArrayList<Quote> quotes = new ArrayList<Quote>(); //ArrayList to hold found quotes
+        ArrayList<Provider> inRangeProviders = new ArrayList<Provider>(); //ArrayList to find all providers that are close
+        
+        for (Provider provider : providers) { //For all providers in the system
+            Location provAddress = provider.getAddress(); //Gets providers address
+            if (provAddress.isNearTo(address)) { //If the customer address and providers address is close then
+                inRangeProviders.add(provider); //It is added to the close providers
+            }
+        }
+        
+        for (Provider provider : inRangeProviders) {
+            ArrayList<Bike> availableBikes = new ArrayList<Bike>();
+            availableBikes = provider.getAvailableBikes(noBikes, types, dates);
+            if (availableBikes != null) {
+                BigDecimal hirePrice = provider.calculateHirePrice(availableBikes, dates);
+                BigDecimal deposit = provider.calculateDeposit(availableBikes);
+                Quote newQuote = new Quote(availableBikes, provider, dates, hirePrice, deposit);
+                quotes.add(newQuote);
+            }
+        }
+        
+        if (quotes.size() > 0) {
+            return quotes;
+        }
+        
+        return quotes;
+    }
 
 }

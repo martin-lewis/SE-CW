@@ -97,12 +97,12 @@ public class Provider {
         this.address = address;
     }
 
-    public BigDecimal getDepositRAte() {
+    public BigDecimal getDepositRate() {
         return depositRate;
     }
 
-    public void setDepositRAte(BigDecimal depositRAte) {
-        this.depositRate = depositRAte;
+    public void setDepositRate(BigDecimal depositRate) {
+        this.depositRate = depositRate;
     }
 
     public String getOpeningTimes() {
@@ -189,6 +189,18 @@ public class Provider {
      */
     public void setPricingInPolicy(BikeType bikeType, BigDecimal price) {
         this.pricingPolicy.setDailyRentalPrice(bikeType, price);
+    }
+    
+    public BigDecimal calculateHirePrice(ArrayList<Bike> bikes, DateRange duration) {
+        return this.pricingPolicy.calculatePrice(bikes, duration);
+    }
+    
+    public BigDecimal calculateDeposit(ArrayList<Bike> bikes) {
+        BigDecimal total = new BigDecimal(0);
+        for (Bike bike : bikes) {
+            total = total.add(bike.getReplacementCost());
+        }
+        return total.multiply(depositRate);
     }
     
     
