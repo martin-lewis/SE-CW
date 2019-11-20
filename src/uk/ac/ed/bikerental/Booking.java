@@ -77,14 +77,16 @@ public class Booking implements Deliverable{
      * @return A BigDecimal containing the deposit to return to the customer
      */
     public BigDecimal providerReturn() {
-        return null;
+        updateStatus("Returned");
+        return this.deposit;
     }
     /**
      * Method called when the bikes are returned to one of the providers partners
      * @return A BigDecimal containing the deposit the partner should return to the customer
      */
     public BigDecimal partnerReturn() {
-        return null;
+        updateStatus("Awaiting pickup for return to provider");
+        return this.deposit;
     }
     
     public Location getProviderAddress() {
