@@ -55,6 +55,7 @@ public class Provider {
             }
         }
         if (availableBikes.size() >= noBikes) { //If we have enough bikes
+            // TODO Martin you dumb bitch
             return (ArrayList<Bike>) availableBikes.subList(0, noBikes - 1); //Send the required number
         } else {
             return null; //If we don't have enough send none
