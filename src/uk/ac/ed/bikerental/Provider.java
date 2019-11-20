@@ -7,15 +7,40 @@ public class Provider {
     private String name;
     private String email;
     private Location address;
-    private BigDecimal depositRAte;
+    private BigDecimal depositRate;
     private ArrayList<Bike> bikeList;
     private String openingTimes;
     private String phoneNumber;
     private ArrayList<Provider> partners;
     private ArrayList<Booking> bookings;
     private PricingPolicy pricingPolicy;
-    private ValuationPolicy depositPolicy;       
+    private ValuationPolicy ValuationPolicy;
     
+    /**
+     * Constructor for Provider
+     * @param name Name of the shop
+     * @param email Email for the shop
+     * @param address Address of the shop
+     * @param depositRate The deposit rate
+     * @param openingTimes The opening times
+     * @param phoneNumber The phone number
+     */
+    public Provider(String name, String email, Location address, BigDecimal depositRate,
+            String openingTimes, String phoneNumber) {
+        super();
+        this.name = name;
+        this.email = email;
+        this.address = address;
+        this.depositRate = depositRate;
+        this.bikeList = new ArrayList<Bike>();
+        this.openingTimes = openingTimes;
+        this.phoneNumber = phoneNumber;
+        this.partners = new ArrayList<Provider>();
+        this.bookings = new ArrayList<Booking>();
+        this.pricingPolicy = new DefaultPricingPolicy();
+        this.ValuationPolicy = new DefaultValuationPolicy();
+    }
+
     public ArrayList<Bike> getAvailableBikes(int noBikes, ArrayList<String> types, DateRange duration ){
         return null;
     }
@@ -50,11 +75,11 @@ public class Provider {
     }
 
     public BigDecimal getDepositRAte() {
-        return depositRAte;
+        return depositRate;
     }
 
     public void setDepositRAte(BigDecimal depositRAte) {
-        this.depositRAte = depositRAte;
+        this.depositRate = depositRAte;
     }
 
     public String getOpeningTimes() {
@@ -76,13 +101,55 @@ public class Provider {
     public ArrayList<Bike> getBikeList() {
         return bikeList;
     }
+    /**
+     * Adds a bike to the list of bikes
+     * @param bike The bike to be added
+     */
+    public void addBike(Bike bike) {
+        assert(bike != null);
+        this.bikeList.add(bike);
+    }
+    /**
+     * Removes a given bike from the list, if passed a bike not in the list will do nothing
+     * @param bike The bike to remove
+     */
+    public void removeBike(Bike bike) {
+        assert(bike != null);
+        if (this.bikeList.contains(bike)) {
+            this.bikeList.remove(bike);
+        }
+    }
 
     public ArrayList<Provider> getPartners() {
         return partners;
     }
+    
+    public void addPartner(Provider partner) {
+        assert(partner != null);
+        this.partners.add(partner);
+    }
+    /**
+     * Removes the given partner from the list of partners, if the Provider passed
+     * is not in the list the method does nothing
+     * @param partner The Provider to remove
+     */
+    public void removePartner(Provider partner) {
+        assert(partner != null);
+        if (this.partners.contains(partner)) {
+            this.partners.remove(partner);
+        }
+    }
 
     public ArrayList<Booking> getBookings() {
         return bookings;
+    }
+    /**
+     * Adds the given booking to the list of bookings
+     * @param booking The booking to add
+     */
+    public void addBooking(Booking booking) {
+        assert(booking != null);
+        this.bookings.add(booking);
     }
 
     public void setPricingPolicy(PricingPolicy pricingPolicy) {
@@ -90,7 +157,7 @@ public class Provider {
     }
 
     public void setDepositPolicy(ValuationPolicy depositPolicy) {
-        this.depositPolicy = depositPolicy;
+        this.ValuationPolicy = depositPolicy;
     }
     
     
