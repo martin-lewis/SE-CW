@@ -42,11 +42,20 @@ public class Provider {
     }
 
     public ArrayList<Bike> getAvailableBikes(int noBikes, ArrayList<String> types, DateRange duration ){
+        for (Bike bike : this.bikeList) {
+            
+        }
         return null;
     }
-    
+    /**
+     * Takes a collection of bikes and set the all unavailable for the given duration
+     * @param bikes The Collection of bikes
+     * @param duration The duration for which the bikes should be set unavailable
+     */
     public void setBikesUnavailable(ArrayList<Bike> bikes, DateRange duration) {
-        
+        for (Bike bike : bikes) {
+            bike.setUnavailable(duration);
+        }
     }
     
     //Getters and setters
