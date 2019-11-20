@@ -1,6 +1,7 @@
 package uk.ac.ed.bikerental;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 public class Controller {
@@ -63,12 +64,16 @@ public class Controller {
         return;
     }
     /**
-     * 
-     * @param address
-     * @param dates
-     * @param types
-     * @param noBikes
-     * @return
+     * This method takes a set of conditions and attempts to find suitable quotes within the providers listed
+     * in the controller. If no quotes can be found within the dates given then it will check 3 days either side of
+     * the initial dates. If still no quotes can be found then it will return null
+     * @param address The address the customer has given
+     * @param dates The dates over which the customer wants to hire
+     * @param types The types of the bikes they want
+     * @param noBikes The number of bikes they want
+     * @return Will return either a list of one or more quotes or null
+     * @see Quote
+     * @see Provider
      */
     public ArrayList<Quote> getQuotes(Location address, DateRange dates, ArrayList<String> types, int noBikes){
         ArrayList<Quote> quotes = new ArrayList<Quote>(); //ArrayList to hold found quotes
@@ -86,21 +91,21 @@ public class Controller {
             availableBikes = provider.getAvailableBikes(noBikes, types, dates); //Gets the bikes the provider has available
             if (availableBikes != null) { //If the bikes is null there are no bikes so if its not null and there are
                 BigDecimal hirePrice = provider.calculateHirePrice(availableBikes, dates); //Calculates hirePrice
-                BigDecimal deposit = provider.calculateDeposit(availableBikes);
-                Quote newQuote = new Quote(availableBikes, provider, dates, hirePrice, deposit);
-                quotes.add(newQuote);
+                BigDecimal deposit = provider.calculateDeposit(availableBikes); //Calculates deposit
+                Quote newQuote = new Quote(availableBikes, provider, dates, hirePrice, deposit); //Creates this new quote
+                quotes.add(newQuote); //Adds the new quote
             }
         }
         
-        if (quotes.size() > 0) {
-            return quotes;
-        } else {
-            for (int i = -3; i < 4; i++) {
-                if (i==0) {
-                    continue;
+        if (quotes.size() > 0) { //If there are some quotes
+            return quotes; //they are returned
+        } else { //otherwise if there are none we look around other dates
+            for (int i = -3; i < 4; i++) { //Runs through -3 to 3 inclusive representing the number of days we look either side of the original
+                if (i==0) {  //Skip a shift of 0 days as we have already looked at it
+                    continue; //Moves to next i value
                 }
-                DateRange newDate = dates.shift(i);
-                
+                DateRange newDate = dates.shift(i); //Generates new date
+                //Runs the code from before on the new dates
                 for (Provider provider : inRangeProviders) {
                     ArrayList<Bike> availableBikes = new ArrayList<Bike>();
                     availableBikes = provider.getAvailableBikes(noBikes, types, newDate);
@@ -112,11 +117,38 @@ public class Controller {
                     }
                 }
             }
-            if (quotes.size() > 0) {
-                return quotes;
-            } else {
-                return null;
+            if (quotes.size() > 0) { //If once we have run the shifted dates we have some quotes
+                return quotes; //they are returned
+            } else { //otherwise we have exhausted all options
+                return null; //null is returned
             }
+        }
+        
+    }
+    /**
+     * Take a quote and confirms it as a booking updating the internal state and scheduling delivery
+     * if required
+     * @param quote The Quote that is being booked
+     * @param customer A Customer object containing the customers details
+     * @param address The address for bike delivery, 
+     */
+    public void bookQuote(Quote quote, Customer customer, Location address) {
+        Booking booking = new Booking(quote, customer, address); //Creates a booking object
+        sendEmail(customer.getEmail(), "Placeholder"); //Sends an email TODO add the body of the email
+        Provider provider = quote.getProvider(); //Gathers needed details from the quote
+        ArrayList<Bike> bikes = quote.getBikes();
+        DateRange dates = quote.getDuration();
+        LocalDate startDate = dates.getStart();
+        
+        
+        provider.addBooking(booking); //Adds the booking to provider
+        provider.setBikesUnavailable(bikes, dates); //Sets the bikes unavailable
+        customer.addBooking(booking); //Adds the booking to the customer
+        Location providerAddress = provider.getAddress(); //Gets the providers address
+        
+        //SCHEDULE DELIVERY
+        if (address != null) { //If an address has been provided, i.e. they want delivery
+            this.deliveryService.scheduleDelivery(booking, providerAddress, address, startDate); //Delivery is scheduled
         }
         
     }
