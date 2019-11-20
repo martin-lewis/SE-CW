@@ -1,6 +1,7 @@
 package uk.ac.ed.bikerental;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 public class Controller {
@@ -121,6 +122,32 @@ public class Controller {
             } else { //otherwise we have exhausted all options
                 return null; //null is returned
             }
+        }
+        
+    }
+    /**
+     * Take a quote and confirms it as a booking updating the internal state and scheduling delivery
+     * if required
+     * @param quote The Quote that is being booked
+     * @param customer A Customer object containing the customers details
+     * @param address The address for bike delivery, 
+     */
+    public void bookQuote(Quote quote, Customer customer, Location address) {
+        Booking booking = new Booking(quote, customer, address); //Creates a booking object
+        sendEmail(customer.getEmail(), "Placeholder"); //Sends an email TODO add the body of the email
+        Provider provider = quote.getProvider(); //Gathers needed details from the quote
+        ArrayList<Bike> bikes = quote.getBikes();
+        DateRange dates = quote.getDuration();
+        LocalDate startDate = dates.getStart();
+        
+        
+        provider.addBooking(booking); //Adds the booking to provider
+        provider.setBikesUnavailable(bikes, dates); //Sets the bikes unavailable
+        Location providerAddress = provider.getAddress(); //Gets the providers address
+        
+        //SCHEDULE DELIVERY
+        if (address != null) { //If an address has been provided, i.e. they want delivery
+            this.deliveryService.scheduleDelivery(booking, providerAddress, address, startDate); //Delivery is scheduled
         }
         
     }
