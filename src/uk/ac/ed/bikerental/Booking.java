@@ -1,13 +1,14 @@
 package uk.ac.ed.bikerental;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
  * Class that contains information about individual booking and
  * allows updates to be made to it
  */
-public class Booking {
+public class Booking implements Deliverable{
     
     private final Customer customer;
     private final Provider provider;
@@ -58,6 +59,7 @@ public class Booking {
         this.duration = duration;
         this.cost = cost;
         this.deposit = deposit;
+        
     }
 
 
@@ -84,7 +86,20 @@ public class Booking {
     public BigDecimal partnerReturn() {
         return null;
     }
+    
+    public Location getProviderAddress() {
+        return provider.getAddress();
+    }
+    
+    public LocalDate getEndDate() {
+        return duration.getEnd();
+    }
+    
+    public String getProviderEmail() {
+        return provider.getEmail();
+    }
 
+    // Getters and setters
     public String getState() {
         return state;
     }
@@ -115,6 +130,18 @@ public class Booking {
 
     public BigDecimal getDeposit() {
         return deposit;
+    }
+
+    @Override
+    public void onPickup() {
+        // TODO Auto-generated method stub
+        this.updateStatus("Being delivered");
+    }
+
+    @Override
+    public void onDropoff() {
+        // TODO Auto-generated method stub
+        this.updateStatus("Delivered");
     }
     
     
