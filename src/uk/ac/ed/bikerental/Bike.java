@@ -75,13 +75,15 @@ public class Bike {
      * @param newStatus The status that you want to set to
      */
     public void setStatus(String newStatus) {
+        this.status = newStatus;
     }
     
     /**
-     * Sets the bike as unavailable during a specific duration
+     * Sets the bike as unavailable during a specific duration, assumes it does not overlap with existing
      * @param duration The duration that the bike is unavailable for
      */
-    public void setUnavailable(DateRange duration) {       
+    public void setUnavailable(DateRange duration) {
+        this.unavailabilities.add(duration);
     }
     
     /**
@@ -90,7 +92,14 @@ public class Bike {
      * @return True if the bike is available for the location
      */
     public boolean isAvailable(DateRange duration) {
-        return false;
+        boolean available = true;
+        for (DateRange date: this.unavailabilities) {
+            if (date.overlaps(duration)) {
+                available = false;
+                break;
+            }
+        }
+        return available;
     }
 
     
