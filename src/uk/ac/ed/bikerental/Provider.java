@@ -40,12 +40,25 @@ public class Provider {
         this.pricingPolicy = new DefaultPricingPolicy();
         this.ValuationPolicy = new DefaultValuationPolicy();
     }
-
+    /**
+     * Returns a list of size noBikes that fits the requirements passed, or null if not enough bikes are found
+     * @param noBikes The number of bikes that are required
+     * @param types An ArrayList of the types that are wanted
+     * @param duration The DateRange over which the bikes are wanted
+     * @return ArrayList of size noBikes is bikes are found or null if not enough bikes are available
+     */
     public ArrayList<Bike> getAvailableBikes(int noBikes, ArrayList<String> types, DateRange duration ){
+        ArrayList<Bike> availableBikes = new ArrayList<Bike>();
         for (Bike bike : this.bikeList) {
-            
+            if ((types.contains(bike.getGenericType())) && (bike.isAvailable(duration))) {
+                availableBikes.add(bike);
+            }
         }
-        return null;
+        if (availableBikes.size() >= noBikes) {
+            return (ArrayList<Bike>) availableBikes.subList(0, noBikes - 1);
+        } else {
+            return null;
+        }
     }
     /**
      * Takes a collection of bikes and set the all unavailable for the given duration
