@@ -23,7 +23,7 @@ public class PricingPolicyTests {
         testPolicy = new APricingPolicy();       
         dates = new DateRange(LocalDate.of(2019,10,1),LocalDate.of(2019,10,5));       
         BigDecimal testPrice = new BigDecimal(50);
-        BikeType testType = new BikeType(testPrice, testPrice);
+        BikeType testType = new BikeType(testPrice, testPrice, "testGenericType");
         testBikes = new ArrayList<Bike>();
         for (int i = 0; i < 10; i++) {
             testBikes.add(new Bike(testType));

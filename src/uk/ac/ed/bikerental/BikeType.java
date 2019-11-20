@@ -5,7 +5,11 @@ import java.util.Objects;
 
 public class BikeType {
     
-    
+    /**
+     * The broad type that this bike falls under, I.E "mountain bike"
+     *  or "road bike"
+     */
+    private final String genericType;
     private BigDecimal dailyPrice;
     private BigDecimal replacementValue;
     
@@ -14,11 +18,16 @@ public class BikeType {
      * @param dailyPrice The daily price to hire the bike type
      * @param replacementValue The replacement value of the bike type
      */
-    BikeType(BigDecimal dailyPrice, BigDecimal replacementValue) {
+    BikeType(BigDecimal dailyPrice, BigDecimal replacementValue
+            , String genericType) {
         this.dailyPrice = dailyPrice;
         this.replacementValue = replacementValue;
-    }  
+        this.genericType = genericType;
+    } 
     
+    public String getGenericType() {
+        return genericType;
+    }
     
     public BigDecimal getDailyPrice() {
         return this.dailyPrice;
