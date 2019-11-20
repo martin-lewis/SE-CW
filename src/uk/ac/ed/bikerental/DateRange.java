@@ -98,4 +98,10 @@ public class DateRange {
     }
     
     // You can add your own methods here
+    
+    public DateRange shift(int noDays) {
+        LocalDate newStart = this.start.plus(noDays, ChronoUnit.DAYS);
+        LocalDate newEnd = this.start.plus(noDays, ChronoUnit.DAYS);
+        return new DateRange(newStart, newEnd);
+    }
 }
