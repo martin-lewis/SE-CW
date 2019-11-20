@@ -3,7 +3,6 @@ package uk.ac.ed.bikerental;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 
 public class APricingPolicy implements PricingPolicy {
     
@@ -21,6 +20,14 @@ public class APricingPolicy implements PricingPolicy {
         }
         policy.put(length, discount);
     }
+    
+    public void removeDiscount(Long length, int discount) { //removes a discount
+        if ((length != 0) && (policy.containsKey(length))) { //If the length is not the default 0 and is in the mapping
+            policy.remove(length); //Then it is removed
+        }
+        //Else nothing happens, the thing they want removed is not there
+    }
+    
     //@ required duration>=0
     //@ ensures \result>=0
     private int getDiscount(Long duration) {
