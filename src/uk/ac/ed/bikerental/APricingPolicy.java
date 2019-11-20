@@ -8,20 +8,36 @@ public class APricingPolicy implements PricingPolicy {
     
     private HashMap<Long,Integer> policy; //Maps number of days to discount
     
-    APricingPolicy () {
+    /**
+     * Constructor for APricingPolicy. Initialises policy wth a 
+     *  single entry for a 0% discount on day 0
+     */
+    public APricingPolicy () {
         policy = new HashMap<Long, Integer>();
         policy.put((long) 0, 0);
     }
- 
+    
+    /**
+     * Adds a discount entry to the policy.
+     * @param length Minimum number of days for the discount to apply 
+     *  - discount applies until another one would be applicable instead.
+     * @param discount  The discount as a percentage -  i.e 50% 
+     *  discount would require you to put in 50. This must be below 101
+     *  and above -1
+     */
     public void setDiscount(Long length, int discount) {
-        if (discount > 100) {
+        if (discount > 100 || discount < 0) {
             throw new IllegalArgumentException("Discount cannot be more than 100");
             //We don't need to worry about dealing with the exception as it will not be called by our system
         }
         policy.put(length, discount);
     }
     
-    public void removeDiscount(Long length, int discount) { //removes a discount
+    /**
+     * removes a discount from policy
+     * @param length the length of the discount you want to remove
+     */
+    public void removeDiscount(Long length) { //removes a discount
         if ((length != 0) && (policy.containsKey(length))) { //If the length is not the default 0 and is in the mapping
             policy.remove(length); //Then it is removed
         }
