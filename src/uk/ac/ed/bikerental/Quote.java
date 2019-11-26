@@ -87,7 +87,9 @@ public class Quote implements Comparable{
     public BigDecimal getDeposit() {
         return deposit;
     }
-
+    /**
+     * Function that in required for the class to implement Comparable
+     */
     @Override
     public int compareTo(Object o) {
         Quote temp = (Quote) o;
