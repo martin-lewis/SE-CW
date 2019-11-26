@@ -11,7 +11,7 @@ import java.util.Collection;
  *
  */
 public class Quote implements Comparable{
-    public static int counter = 0;
+    public static int counter = 0; //Counter is static to assign unique id's
     
     public final int uniqueID;
     private final ArrayList<Bike> bikes;
@@ -29,8 +29,8 @@ public class Quote implements Comparable{
      * @param deposit The deposit amount
      */
     public Quote(Collection<Bike> bikes, Provider provider, DateRange duration, BigDecimal cost, BigDecimal deposit) {
-        this.uniqueID = counter;
-        counter += 1;
+        this.uniqueID = counter; //Assigns id 
+        counter += 1; //Incremenets counter
         this.bikes = (ArrayList<Bike>) bikes;
         this.provider = provider;
         this.duration = duration;
@@ -46,7 +46,6 @@ public class Quote implements Comparable{
      * @param quote The quote we check against
      * @return Ture if .equals is true for all instance variables
      */ 
-    
     public Boolean equals(Quote quote) {
         for(Bike bike : this.bikes) {
             if(!quote.bikes.contains(bike)) {

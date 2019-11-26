@@ -9,9 +9,9 @@ import java.util.ArrayList;
 
 public class Bike implements Comparable {
     
-    public static int counter = 0;
+    public static int counter = 0; //Counter is used to make the unique ids, stays as static
     
-    private final int uniqueID;
+    private final int uniqueID; //This is needed to do the comparisons
     private final BikeType bikeType;
     private Provider provider;
     private String status;
@@ -26,8 +26,8 @@ public class Bike implements Comparable {
      * @param bikeType Takes the type of bike, this is a final attribute
      */
     public Bike (BikeType bikeType) {
-        this.uniqueID = counter;
-        counter += 1;
+        this.uniqueID = counter; //Sets the unique id
+        counter += 1; //Increments the counter
         this.bikeType = bikeType;
         this.age = 0;
         this.status = "Available";
