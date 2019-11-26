@@ -136,6 +136,24 @@ public class SystemTests {
     }
     
     // TODO: Write system tests covering the three main use cases
+    
+    @Test
+    void testNullGetAvailable1() {
+        ArrayList<String> searchTypes = new ArrayList<>();
+        searchTypes.add("Mountain Bike");
+        ArrayList<Bike> shouldBeNull = provider1.getAvailableBikes(10, searchTypes, testDateRange);
+        assertEquals(shouldBeNull, null);
+    }
+    
+    @Test
+    void testNullGetAvailable2() {
+        provider1.setBikesUnavailable(provider1.getBikeList(), testDateRange);
+        ArrayList<String> searchTypes = new ArrayList<>();
+        searchTypes.add("Mountain Bike");
+        ArrayList<Bike> shouldBeNull = provider1.getAvailableBikes(1, searchTypes, testDateRange);
+        assertEquals(shouldBeNull, null);
+        
+    }
 
     @Test 
     void testRegularGet() { // I.e there are providers within range of the customer
