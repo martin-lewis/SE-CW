@@ -73,6 +73,32 @@ public class SystemTests {
         return true;
     }
     
+    public boolean compareBikeList(ArrayList<Bike> a, ArrayList<Bike> b) {
+        for(Bike quote : a) {
+            boolean found = false;
+            for(Bike quote2 : b) {
+                if(quote.equals(quote2)){
+                    found = true;
+                }
+            }
+            if(!found) {
+                return false;
+            }
+        }
+        for(Bike quote : b) {
+            boolean found = false;
+            for(Bike quote2 : a) {
+                if(quote.equals(quote2)){
+                    found = true;
+                }
+            }
+            if(!found) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
     @BeforeEach
     void setUp() throws Exception {
         // Setup mock delivery service before each tests
@@ -163,6 +189,27 @@ public class SystemTests {
         Collections.sort(actualQuotes);
         Collections.sort(expectedQuotes);
         boolean testResult = compareQuoteList(actualQuotes, expectedQuotes);
+        assertTrue(testResult);
+    }
+    
+    @Test
+    void testRegularGetAvailableBikes() {
+        ArrayList<Bike> expectedBikes = new ArrayList<Bike>();
+        expectedBikes.add(MTB11);
+        expectedBikes.add(MTB12);
+        expectedBikes.add(MTB13);
+        expectedBikes.add(MTB21);
+        expectedBikes.add(MTB22);
+        ArrayList<String> searchTypes = new ArrayList<>();
+        searchTypes.add("Mountain Bike");
+
+        ArrayList<Bike> actualBikes = provider1.getAvailableBikes(5, searchTypes, testDateRange);
+        
+        Collections.sort(expectedBikes);
+        Collections.sort(actualBikes);
+        
+        boolean testResult = compareBikeList(expectedBikes, actualBikes);
+        
         assertTrue(testResult);
     }
 }
