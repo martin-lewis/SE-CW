@@ -1,6 +1,7 @@
 package uk.ac.ed.bikerental;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Provider {
@@ -197,10 +198,10 @@ public class Provider {
         return this.pricingPolicy.calculatePrice(bikes, duration);
     }
     
-    public BigDecimal calculateDeposit(ArrayList<Bike> bikes) {
+    public BigDecimal calculateDeposit(ArrayList<Bike> bikes, LocalDate date) {
         BigDecimal total = new BigDecimal(0);
         for (Bike bike : bikes) {
-            total = total.add(bike.getReplacementCost());
+            total = total.add(this.ValuationPolicy.calculateValue(bike, date));
         }
         return total.multiply(depositRate);
     }

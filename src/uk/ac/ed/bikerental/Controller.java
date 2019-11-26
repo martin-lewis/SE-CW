@@ -91,7 +91,7 @@ public class Controller {
             availableBikes = provider.getAvailableBikes(noBikes, types, dates); //Gets the bikes the provider has available
             if (availableBikes != null) { //If the bikes is null there are no bikes so if its not null and there are
                 BigDecimal hirePrice = provider.calculateHirePrice(availableBikes, dates); //Calculates hirePrice
-                BigDecimal deposit = provider.calculateDeposit(availableBikes); //Calculates deposit
+                BigDecimal deposit = provider.calculateDeposit(availableBikes, dates.getStart()); //Calculates deposit
                 Quote newQuote = new Quote(availableBikes, provider, dates, hirePrice, deposit); //Creates this new quote
                 quotes.add(newQuote); //Adds the new quote
             }
@@ -111,7 +111,7 @@ public class Controller {
                     availableBikes = provider.getAvailableBikes(noBikes, types, newDate);
                     if (availableBikes != null) {
                         BigDecimal hirePrice = provider.calculateHirePrice(availableBikes, newDate);
-                        BigDecimal deposit = provider.calculateDeposit(availableBikes);
+                        BigDecimal deposit = provider.calculateDeposit(availableBikes, dates.getStart());
                         Quote newQuote = new Quote(availableBikes, provider, newDate, hirePrice, deposit);
                         quotes.add(newQuote);
                     }
