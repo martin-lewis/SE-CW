@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Class that represents the individual bikes in the system
  */
 
-public class Bike {
+public class Bike implements Comparable {
     
     public static int counter = 0;
     
@@ -120,6 +120,12 @@ public class Bike {
             }
         }
         return available;
+    }
+
+    @Override
+    public int compareTo(Object arg0) {
+        Bike temp = (Bike) arg0;
+        return this.uniqueID - temp.uniqueID;
     }
 
     
