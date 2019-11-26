@@ -10,8 +10,10 @@ import java.util.Collection;
  * This class encapsulates information about quotes
  *
  */
-public class Quote {
-
+public class Quote implements Comparable{
+    public static int counter = 0;
+    
+    public final int uniqueID;
     private final ArrayList<Bike> bikes;
     private final Provider provider;
     private final DateRange duration;
@@ -27,11 +29,43 @@ public class Quote {
      * @param deposit The deposit amount
      */
     public Quote(Collection<Bike> bikes, Provider provider, DateRange duration, BigDecimal cost, BigDecimal deposit) {
+        this.uniqueID = counter;
+        counter += 1;
         this.bikes = (ArrayList<Bike>) bikes;
         this.provider = provider;
         this.duration = duration;
         this.cost = cost;
         this.deposit = deposit;
+    }
+    
+    /**
+     * Checks equality between quote called on and another that is given
+     *  equality for bike collections is done by content, but bike instances are equal
+     *  if have the same reference. Provider equality is also done by reference, but 
+     *  duration, cost, and deposit are checked by content.
+     * @param quote The quote we check against
+     * @return Ture if .equals is true for all instance variables
+     */ 
+    
+    public Boolean equals(Quote quote) {
+        for(Bike bike : this.bikes) {
+            if(!quote.bikes.contains(bike)) {
+                return false;
+            }
+        }
+        for(Bike bike: quote.bikes) {
+            if(!this.bikes.contains(bike)) {
+                return false;
+            }
+        }
+        Boolean provEquality = (this.provider == quote.provider);
+        Boolean durEquality = (this.duration.equals(quote.duration));
+        Boolean costEquality = (this.cost.equals(quote.cost));
+        Boolean depositEquality = (this.duration.equals(quote.duration));
+        if(!(provEquality && durEquality && costEquality && depositEquality)) {
+            return false;
+        }
+        return true;
     }
     
     public ArrayList<Bike> getBikes() {
@@ -52,5 +86,11 @@ public class Quote {
 
     public BigDecimal getDeposit() {
         return deposit;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Quote temp = (Quote) o;
+        return (this.uniqueID - temp.uniqueID);
     }
 }

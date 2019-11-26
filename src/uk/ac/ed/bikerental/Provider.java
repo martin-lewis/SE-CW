@@ -49,14 +49,15 @@ public class Provider {
      */
     public ArrayList<Bike> getAvailableBikes(int noBikes, ArrayList<String> types, DateRange duration ){
         ArrayList<Bike> availableBikes = new ArrayList<Bike>(); //New array list to hold available bikes
+        int counter = 0;
         for (Bike bike : this.bikeList) { //Runs over all the providers bikes
-            if ((types.contains(bike.getGenericType())) && (bike.isAvailable(duration))) { //If it fits the requirements
+            if ((types.contains(bike.getGenericType())) && (bike.isAvailable(duration)) && counter < noBikes) { //If it fits the requirements
                 availableBikes.add(bike);
+                counter += 1;
             }
         }
-        if (availableBikes.size() >= noBikes) { //If we have enough bikes
-            // TODO Martin you dumb bitch
-            return (ArrayList<Bike>) availableBikes.subList(0, noBikes - 1); //Send the required number
+        if (availableBikes.size() == noBikes) { //If we have enough bikes
+            return availableBikes; //Send the required number
         } else {
             return null; //If we don't have enough send none
         }

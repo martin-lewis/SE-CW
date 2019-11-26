@@ -6,11 +6,16 @@ import java.util.ArrayList;
 /**
  * Class that represents the individual bikes in the system
  */
+
 public class Bike {
     
+    public static int counter = 0;
+    
+    private final int uniqueID;
     private final BikeType bikeType;
     private Provider provider;
     private String status;
+    // TODO remove variables that are actually stored within bikeType
     private BigDecimal replacementCost;
     private BigDecimal dailyHireCost;
     private int age;
@@ -20,8 +25,17 @@ public class Bike {
      * Constructor for Bike
      * @param bikeType Takes the type of bike, this is a final attribute
      */
-    Bike (BikeType bikeType) {
+    public Bike (BikeType bikeType) {
+        this.uniqueID = counter;
+        counter += 1;
         this.bikeType = bikeType;
+        this.age = 0;
+        this.status = "Available";
+        this.unavailabilities = new ArrayList<>();
+    }
+    
+    public boolean equals(Bike bike) {
+        return this.uniqueID == bike.uniqueID;
     }
     
     public String getGenericType() {
@@ -36,17 +50,19 @@ public class Bike {
         return bikeType;
     }
     public BigDecimal getReplacementCost() {
-        return replacementCost;
+        return bikeType.getReplacementValue();
     }
-
+    
+    // TODO remove 
     public void setReplacementCost(BigDecimal replacementCost) {
         this.replacementCost = replacementCost;
     }
 
     public BigDecimal getDailyHireCost() {
-        return dailyHireCost;
+        return bikeType.getDailyPrice();
     }
-
+    
+    // TODO remove
     public void setDailyHireCost(BigDecimal dailyHireCost) {
         this.dailyHireCost = dailyHireCost;
     }
