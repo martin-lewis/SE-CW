@@ -197,7 +197,11 @@ public class Provider {
     public BigDecimal calculateHirePrice(ArrayList<Bike> bikes, DateRange duration) {
         return this.pricingPolicy.calculatePrice(bikes, duration);
     }
-    
+    /**
+     * Method that calculates the deposit given a set of bikes, calls a set of methods on the bikes
+     * @param bikes A list of bikes hopefully that belong to the provider
+     */
+     * @return A big decimal with the value of the deposit
     public BigDecimal calculateDeposit(ArrayList<Bike> bikes, LocalDate date) {
         BigDecimal total = new BigDecimal(0);
         for (Bike bike : bikes) {

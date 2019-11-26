@@ -121,7 +121,9 @@ public class Bike implements Comparable {
         }
         return available;
     }
-
+    /**
+     * Method required to make Bike comparable
+     */
     @Override
     public int compareTo(Object arg0) {
         Bike temp = (Bike) arg0;
