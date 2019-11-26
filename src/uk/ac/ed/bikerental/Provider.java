@@ -200,14 +200,14 @@ public class Provider {
     /**
      * Method that calculates the deposit given a set of bikes, calls a set of methods on the bikes
      * @param bikes A list of bikes hopefully that belong to the provider
-     */
      * @return A big decimal with the value of the deposit
+     */
     public BigDecimal calculateDeposit(ArrayList<Bike> bikes, LocalDate date) {
-        BigDecimal total = new BigDecimal(0);
-        for (Bike bike : bikes) {
-            total = total.add(this.ValuationPolicy.calculateValue(bike, date));
+        BigDecimal total = new BigDecimal(0); //Creates a total to hold the value
+        for (Bike bike : bikes) { //For each bike given
+            total = total.add(this.ValuationPolicy.calculateValue(bike, date)); //Uses valuation to find each deposit
         }
-        return total.multiply(depositRate);
+        return total.multiply(depositRate); //Multiplies this by the provider rate
     }
     
     
