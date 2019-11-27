@@ -186,7 +186,7 @@ public class SystemTests {
     //bookQuotes tests
     @Test
     void testRegularBook1() {
-        Booking testBooking = new Booking(testQuote1, drBees, null);
+        Booking testBooking = theController.bookQuote(testQuote1, drBees, null);
         ArrayList<Bike> q1Bikes= new ArrayList<>();
         q1Bikes.add(MTB11);
         q1Bikes.add(MTB12);
@@ -197,6 +197,14 @@ public class SystemTests {
         assertEquals(testBooking.getCost(), bd50);
         assertEquals(testBooking.getDuration(), testDateRange1);
         assertEquals(testBooking.getState(), "Booked");
+    }
+    
+    @Test
+    void testRegularBook2() {   // Tests that bike are correctly set unavailable
+        Booking testBooking = theController.bookQuote(testQuote1, drBees, null);
+        for(Bike bike : testBooking.getBikes()) {
+            assertTrue(bike.getUnavailabilities().contains(testDateRange1));
+        }
     }
     
     //getQuotes tests
