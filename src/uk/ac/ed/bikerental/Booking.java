@@ -45,6 +45,8 @@ public class Booking implements Deliverable{
         this.possibleStates.add("Booked");
         this.possibleStates.add("Being delivered");
         this.possibleStates.add("Delivered");
+        this.possibleStates.add("Awaiting pickup for return to provider");
+        this.possibleStates.add("Returned");
         
     }
     
