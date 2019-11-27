@@ -218,6 +218,15 @@ public class SystemTests {
         assertThrows(AssertionError.class, () -> provider1.calculateDeposit(empty, testDateRange1.getStart()));
     }
     
+    @Test
+    void testCalculateDepositAssert() {     //Checks that calculateDeposit fails when passed bikes not
+                                            // belonging to the provider it is called on
+        ArrayList<Bike> notProv1s = new ArrayList<>();
+        notProv1s.add(MTB14);
+        assertThrows(AssertionError.class, () -> provider1.calculateDeposit(notProv1s, testDateRange1.getStart()));
+        
+    }
+    
     @Test 
     void testCalculateHirePriceAssert2() {    // Checks that calculateHirePrice has an assertionError when 
                                               // passed an empty list of bikes
