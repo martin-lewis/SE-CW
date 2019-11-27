@@ -76,6 +76,7 @@ public class Controller {
      * @see Provider
      */
     public ArrayList<Quote> getQuotes(Location address, DateRange dates, ArrayList<String> types, int noBikes){
+        assert(noBikes > 0); //Checks there are more than 0 bikes wanted
         ArrayList<Quote> quotes = new ArrayList<Quote>(); //ArrayList to hold found quotes
         ArrayList<Provider> inRangeProviders = new ArrayList<Provider>(); //ArrayList to find all providers that are close
         
