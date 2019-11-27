@@ -207,6 +207,18 @@ public class SystemTests {
         }
     }
     
+    @Test
+    void testRegularBook3() {   // Tests that booking is added to customer
+        Booking testBooking = theController.bookQuote(testQuote1, drBees, null);
+        assertTrue(drBees.getBookings().contains(testBooking));
+    }
+    
+    @Test
+    void testRegularBook4() {   // Tests that booking is added to provider
+        Booking testBooking = theController.bookQuote(testQuote1, drBees, null);
+        assertTrue(testQuote1.getProvider().getBookings().contains(testBooking));
+    }
+    
     //getQuotes tests
     @Test
     void testNullGetAvailable1() {
