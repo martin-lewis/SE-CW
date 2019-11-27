@@ -43,7 +43,7 @@ public class SystemTests {
 
     LocalDate date20thNov2019;
     LocalDate date25thNov2019;
-    DateRange testDateRange;
+    DateRange testDateRange1;
     
     Customer drBees;
     Location drBeesAddress;
@@ -109,7 +109,7 @@ public class SystemTests {
 
         date20thNov2019 = LocalDate.of(2019, 11, 20);
         date25thNov2019 = LocalDate.of(2019, 11, 25);
-        testDateRange = new DateRange(date20thNov2019, date25thNov2019);
+        testDateRange1 = new DateRange(date20thNov2019, date25thNov2019);
         
         DeliveryServiceFactory.setupMockDeliveryService();
         DeliveryService service = DeliveryServiceFactory.getDeliveryService();
@@ -176,16 +176,16 @@ public class SystemTests {
     void testNullGetAvailable1() {
         ArrayList<String> searchTypes = new ArrayList<>();
         searchTypes.add("Mountain Bike");
-        ArrayList<Bike> shouldBeNull = provider1.getAvailableBikes(10, searchTypes, testDateRange);
+        ArrayList<Bike> shouldBeNull = provider1.getAvailableBikes(10, searchTypes, testDateRange1);
         assertEquals(shouldBeNull, null);
     }
     
     @Test
     void testNullGetAvailable2() {
-        provider1.setBikesUnavailable(provider1.getBikeList(), testDateRange);
+        provider1.setBikesUnavailable(provider1.getBikeList(), testDateRange1);
         ArrayList<String> searchTypes = new ArrayList<>();
         searchTypes.add("Mountain Bike");
-        ArrayList<Bike> shouldBeNull = provider1.getAvailableBikes(1, searchTypes, testDateRange);
+        ArrayList<Bike> shouldBeNull = provider1.getAvailableBikes(1, searchTypes, testDateRange1);
         assertEquals(shouldBeNull, null);
         
     }
@@ -201,7 +201,7 @@ public class SystemTests {
         ArrayList<String> searchTypes = new ArrayList<>();
         searchTypes.add("Mountain Bike");
 
-        ArrayList<Bike> actualBikes = provider1.getAvailableBikes(4, searchTypes, testDateRange);
+        ArrayList<Bike> actualBikes = provider1.getAvailableBikes(4, searchTypes, testDateRange1);
         
         Collections.sort(expectedBikes);
         Collections.sort(actualBikes);
@@ -210,9 +210,16 @@ public class SystemTests {
         
         assertTrue(testResult);
     }
+    
+    @Test 
+    void testCalculateDepositAssert1() {    // Checks that calculateDeposit has an assertionError when 
+                                            // passed an empty list of bikes
+        ArrayList<Bike> empty = new ArrayList<Bike>();
+        assertThrows(AssertionError.class, () -> provider1.calculateDeposit(empty, testDateRange1.getStart()));
+    }
 
     @Test 
-    void testRegularGet() { // I.e there are providers within range of the customer
+    void testRegularGetQuotes() { // I.e there are providers within range of the customer
                             // (in this instance, drBees), with bikes available for 
                             // hire.
         BigDecimal price1 = new BigDecimal(60);
@@ -220,12 +227,12 @@ public class SystemTests {
         ArrayList<Bike> p1Bikes = new ArrayList<>();
         p1Bikes.add(MTB11);
         p1Bikes.add(MTB12);
-        Quote testQuote1 = new Quote(p1Bikes, provider1, testDateRange
+        Quote testQuote1 = new Quote(p1Bikes, provider1, testDateRange1
                 , price1, price2);
         ArrayList<Bike> p2Bikes = new ArrayList<>();
         p2Bikes.add(MTB14);
         p2Bikes.add(MTB15);
-        Quote testQuote2 = new Quote(p2Bikes, provider2, testDateRange
+        Quote testQuote2 = new Quote(p2Bikes, provider2, testDateRange1
                 , price1, price2);
         ArrayList<Quote> expectedQuotes = new ArrayList<>();
         expectedQuotes.add(testQuote1);
@@ -233,7 +240,7 @@ public class SystemTests {
         ArrayList<String> searchTypes = new ArrayList<>();
         searchTypes.add("Mountain Bike");
         ArrayList<Quote> actualQuotes = theController.getQuotes(drBeesAddress
-                , testDateRange, searchTypes, 2);
+                , testDateRange1, searchTypes, 2);
         Collections.sort(actualQuotes);
         Collections.sort(expectedQuotes);
         boolean testResult = compareQuoteList(actualQuotes, expectedQuotes);
@@ -246,7 +253,7 @@ public class SystemTests {
         ArrayList<String> searchTypes = new ArrayList<>();
         searchTypes.add("Mountain Bike");
         ArrayList<Quote> actualQuotes = theController.getQuotes(tooFarAway
-                , testDateRange, searchTypes, 2);
+                , testDateRange1, searchTypes, 2);
         assertTrue(actualQuotes == null);
     }
     
