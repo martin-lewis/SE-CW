@@ -49,4 +49,9 @@ public class Location {
     }
     
     // You can add your own methods here
+    
+    @Override
+    public String toString() {
+        return address + " " + postcode;
+    }
 }

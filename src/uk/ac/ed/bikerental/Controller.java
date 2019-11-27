@@ -139,7 +139,8 @@ public class Controller {
      */
     public Booking bookQuote(Quote quote, Customer customer, Location address) {
         Booking booking = new Booking(quote, customer, address); //Creates a booking object
-        sendEmail(customer.getEmail(), "Placeholder"); //Sends an email TODO add the body of the email
+        
+        sendEmail(customer.getEmail(), this.makeEmailBodyBooking(booking)); //Sends an email TODO add the body of the email
         Provider provider = quote.getProvider(); //Gathers needed details from the quote
         ArrayList<Bike> bikes = quote.getBikes();
         DateRange dates = quote.getDuration();
@@ -157,6 +158,23 @@ public class Controller {
         }
         return booking;
         
+    }
+    
+    private String makeEmailBodyBooking(Booking booking) {
+        String emailBody = "";
+        emailBody = emailBody + "Booking number: " + Integer.toString(booking.uniqueID) + "\n";
+        emailBody = emailBody + "Total Price: " + (booking.getCost().toString()) + "\n";
+        emailBody = emailBody + "Deposit: " + (booking.getDeposit().toString()) + "\n";
+        emailBody = emailBody + "The bikes are \n";
+        for (Bike bike : booking.getBikes()) {
+            emailBody = emailBody + " " + bike.toString() + "\n";
+        }
+        if (booking.getAddress() != null) {
+            emailBody = emailBody + "Being delivered to " + booking.getAddress().toString();
+        }
+
+
+        return emailBody;
     }
 
 }
