@@ -137,6 +137,13 @@ public class Bike implements Comparable {
         Bike temp = (Bike) arg0;
         return this.uniqueID - temp.uniqueID;
     }
+    
+    @Override
+    public String toString() {
+        String returnString = "";
+        returnString = returnString + "Bike " + Integer.toString(this.uniqueID) + " of type " + this.getBikeType().toString();
+        return returnString;
+    }
 
     
     

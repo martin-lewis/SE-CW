@@ -43,4 +43,9 @@ public class BikeType {
     public BigDecimal getReplacementValue() {
         return this.replacementValue;
     }
+    
+    @Override
+    public String toString() {
+        return genericType;
+    }
 }
