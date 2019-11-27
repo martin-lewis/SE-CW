@@ -170,6 +170,14 @@ public class SystemTests {
      * - test under normal circumstances 
      */
     
+    // registerReturnPartner test
+    @Test
+    public void parterReturnAssertion1() {
+        Booking testBooking = theController.bookQuote(testQuote1, drBees, null);
+        assertThrows(AssertionError.class, () -> theController.registerReturnPartner(testBooking, provider1));
+    }
+    
+    
     // registerReturn tests
     @Test
     public void registerReturnTest1() { // Test under normal circumstances
