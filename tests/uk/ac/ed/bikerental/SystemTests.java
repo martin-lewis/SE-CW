@@ -297,4 +297,19 @@ public class SystemTests {
                 , testDateRange1, searchTypes, 0));
     }
     
+    @Test
+    void testGetQuotesAssertion2() {
+        ArrayList<String> searchTypes = new ArrayList<>();
+        searchTypes.add("Mountain Bike");
+        assertThrows(AssertionError.class, () -> theController.getQuotes(drBeesAddress
+                , testDateRange1, null, 0));
+    }
+    
+    @Test
+    void testGetQuotesAssertion() {
+        ArrayList<String> searchTypes = new ArrayList<>();
+        assertThrows(AssertionError.class, () -> theController.getQuotes(drBeesAddress
+                , testDateRange1, searchTypes, 0));
+    }
+    
 }
