@@ -195,6 +195,10 @@ public class Provider {
     }
     
     public BigDecimal calculateHirePrice(ArrayList<Bike> bikes, DateRange duration) {
+        assert(bikes.size() > 0); //Tests that some bikes have been passed to the method
+        for (Bike bike : bikes) { //Checks that all the passed bikes belong to the provider
+            assert(this.bikeList.contains(bike));
+        }
         return this.pricingPolicy.calculatePrice(bikes, duration);
     }
     /**
@@ -203,6 +207,10 @@ public class Provider {
      * @return A big decimal with the value of the deposit
      */
     public BigDecimal calculateDeposit(ArrayList<Bike> bikes, LocalDate date) {
+        assert(bikes.size() > 0); //Tests that some bikes have been passed to the method
+        for (Bike bike : bikes) { //Checks that all the passed bikes belong to the provider
+            assert(this.bikeList.contains(bike));
+        }
         BigDecimal total = new BigDecimal(0); //Creates a total to hold the value
         for (Bike bike : bikes) { //For each bike given
             total = total.add(this.ValuationPolicy.calculateValue(bike, date)); //Uses valuation to find each deposit
