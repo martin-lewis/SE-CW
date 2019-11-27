@@ -191,17 +191,17 @@ public class SystemTests {
     }
     
     @Test
-    void testRegularGetAvailableBikes() {
+    void testRegularGetAvailableBikes() {   // Tests that getAvailableBikes() works as expected when
+                                            // bikes are available
         ArrayList<Bike> expectedBikes = new ArrayList<Bike>();
         expectedBikes.add(MTB11);
         expectedBikes.add(MTB12);
         expectedBikes.add(MTB13);
         expectedBikes.add(MTB21);
-        expectedBikes.add(MTB22);
         ArrayList<String> searchTypes = new ArrayList<>();
         searchTypes.add("Mountain Bike");
 
-        ArrayList<Bike> actualBikes = provider1.getAvailableBikes(5, searchTypes, testDateRange);
+        ArrayList<Bike> actualBikes = provider1.getAvailableBikes(4, searchTypes, testDateRange);
         
         Collections.sort(expectedBikes);
         Collections.sort(actualBikes);
