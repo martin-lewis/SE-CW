@@ -166,7 +166,20 @@ public class SystemTests {
     
    
     /* TODO: Write system tests covering the three main use cases
+     * registerReturn tests:
+     * - test under normal circumstances 
      */
+    
+    // registerReturn tests
+    @Test
+    public void registerReturnTest1() { // Test under normal circumstances
+        Booking testBooking = theController.bookQuote(testQuote1, drBees, null);
+        BigDecimal returnedDeposit = theController.registerReturn(testBooking);
+        assertEquals(testBooking.getState(), "Returned");
+        assertEquals(returnedDeposit, bd50);
+        
+    }
+    
    
     //bookQuotes tests
     @Test
