@@ -3,6 +3,7 @@ package uk.ac.ed.bikerental;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Class that contains information about individual booking and
@@ -20,6 +21,8 @@ public class Booking implements Deliverable{
     private final DateRange duration;
     private final BigDecimal cost;
     private final BigDecimal deposit;
+    private ArrayList<String> possibleStates;
+    
     /**
      * The main constructor for Booking which takes a quote and turns it
      * into a booking
@@ -39,6 +42,10 @@ public class Booking implements Deliverable{
         this.duration = quote.getDuration();
         this.cost = quote.getCost();
         this.deposit = quote.getDeposit();
+        this.possibleStates = new ArrayList<String>();
+        this.possibleStates.add("Booked");
+        this.possibleStates.add("Being delivered");
+        this.possibleStates.add("Delivered");
         
     }
     
@@ -76,7 +83,11 @@ public class Booking implements Deliverable{
      * @param status A string of the status
      */
     public void updateStatus(String status) {
-        return;
+        if (this.possibleStates.contains(status)) {
+            this.state = status;
+        } else {
+            throw new IllegalArgumentException("Not valid State");
+        }
     }
     /**
      * Method called when the bikes are returned to the original provider
