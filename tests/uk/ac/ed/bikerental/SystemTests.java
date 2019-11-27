@@ -286,8 +286,15 @@ public class SystemTests {
         searchTypes.add("Mountain Bike");
         ArrayList<Quote> actualQuotes = theController.getQuotes(drBeesAddress
                 , testDateRange1, searchTypes, 20);
-        assertTrue(null == actualQuotes);
-        
+        assertTrue(null == actualQuotes);    
+    }
+    
+    @Test
+    void testGetQuotesAssertion1() {
+        ArrayList<String> searchTypes = new ArrayList<>();
+        searchTypes.add("Mountain Bike");
+        assertThrows(AssertionError.class, () -> theController.getQuotes(drBeesAddress
+                , testDateRange1, searchTypes, 0));
     }
     
 }
