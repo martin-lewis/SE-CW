@@ -219,6 +219,21 @@ public class SystemTests {
         assertTrue(testQuote1.getProvider().getBookings().contains(testBooking));
     }
     
+    @Test
+    void testRegularBook5() {
+        Booking testBooking = theController.bookQuote(testQuote1, drBees, drBeesAddress);
+        ArrayList<Bike> q1Bikes= new ArrayList<>();
+        q1Bikes.add(MTB11);
+        q1Bikes.add(MTB12);
+        assertEquals(testBooking.getBikes(), q1Bikes);
+        assertEquals(testBooking.getCustomer(), drBees);
+        assertEquals(testBooking.getProvider(), provider1);
+        assertEquals(testBooking.getDeposit(), bd50);
+        assertEquals(testBooking.getCost(), bd50);
+        assertEquals(testBooking.getDuration(), testDateRange1);
+        assertEquals(testBooking.getState(), "Booked");
+    }
+    
     //getQuotes tests
     @Test
     void testNullGetAvailable1() {
