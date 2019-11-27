@@ -36,6 +36,15 @@ public class Controller {
         return booking.providerReturn();
     }
     
+    private String generateReturnEmail(Booking booking, Provider partner) {
+        String body = "Booking ID: " + Integer.toString(booking.uniqueID) + "\n Containing the following"
+                + "bikes: \n";
+        for(Bike bike : booking.getBikes()) {
+            body += " " + bike.toString() + "\n";
+        }
+        body += "was returned to" + partner.getName();
+        return body;
+    }
     /**
      * Registers the return of a booking to a partner of its provider.
      * Note that input validation need not be done on the partner,
@@ -48,11 +57,13 @@ public class Controller {
         Location provAddress = booking.getProviderAddress();
         LocalDate pickupDate = booking.getEndDate();
         deliveryService.scheduleDelivery(booking, partAddress, provAddress, pickupDate);
-        String email = "placeholder";
+        String email = generateReturnEmail(booking, partner);
         String provEmail = booking.getProviderEmail();
         sendEmail(email, provEmail);
         return booking.partnerReturn();
     }
+    
+    
     
     /**
      * Sends an email
