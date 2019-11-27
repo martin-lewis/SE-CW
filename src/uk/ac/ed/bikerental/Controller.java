@@ -54,6 +54,7 @@ public class Controller {
      */
     public BigDecimal registerReturnPartner(Booking booking, Provider partner) {
         assert(!(partner.equals(booking.getProvider())));
+        assert(booking.getProvider().getPartners().contains(partner));
         Location partAddress = partner.getAddress();
         Location provAddress = booking.getProviderAddress();
         LocalDate pickupDate = booking.getEndDate();

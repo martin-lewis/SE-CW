@@ -154,6 +154,7 @@ public class Provider {
     
     public void addPartner(Provider partner) {
         assert(partner != null);
+        assert(!(partner.equals(this))); //Prevents a provider being its own partner
         this.partners.add(partner);
     }
     /**
