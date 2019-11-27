@@ -151,7 +151,7 @@ public class Controller {
     public Booking bookQuote(Quote quote, Customer customer, Location address) {
         Booking booking = new Booking(quote, customer, address); //Creates a booking object
         
-        sendEmail(customer.getEmail(), this.makeEmailBodyBooking(booking)); //Sends an email TODO add the body of the email
+        sendEmail(customer.getEmail(), this.makeEmailBodyBooking(booking)); //Sends an email
         Provider provider = quote.getProvider(); //Gathers needed details from the quote
         ArrayList<Bike> bikes = quote.getBikes();
         DateRange dates = quote.getDuration();
