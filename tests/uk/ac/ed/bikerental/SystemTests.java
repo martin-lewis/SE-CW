@@ -159,6 +159,15 @@ public class SystemTests {
         
     }
     
+    @Test
+    public void bookQuoteAssertion1() {
+        assertThrows(AssertionError.class, () -> theController.bookQuote(null, drBees, null));
+    }
+    
+    @Test
+    public void bookQuoteAssertion2() {
+        assertThrows(AssertionError.class, () -> theController.bookQuote(testQuote1, null, null));
+    }
     /* TODO: Write system tests covering the three main use cases
      * For when customer is out of range
      */
