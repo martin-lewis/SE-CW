@@ -45,6 +45,8 @@ public class SystemTests {
     Customer starMan;
     Location tooFarAway;
     
+    Quote testQuote1;
+    
     public boolean compareQuoteList(ArrayList<Quote> a, ArrayList<Quote> b) {
         for(Quote quote : a) {
             boolean found = false;
@@ -155,17 +157,30 @@ public class SystemTests {
                 , "no reception in space", tooFarAway);
         customers.add(starMan);
         
-        
+        ArrayList<Bike> q1Bikes= new ArrayList<>();
+        q1Bikes.add(MTB11);
+        q1Bikes.add(MTB12);
+        testQuote1 = new Quote(q1Bikes, provider1, testDateRange1, bd50, bd50);
         
     }
     
     /* TODO: Write system tests covering the three main use cases
-     * For when customer is out of range
+     * For bookQuotes
+     * - normal one: test that the booking's attributes are good
+     * - normal one: test that bikes are set unavailable
+     * - normal ones: check booking is added to customer
+     * -              and provider
+     * - normal ones: where address is provided
+     * - assertionError ones
      */
     
+    //bookQuotes tests
+    @Test
+    void testRegularBook1() {
+        
+    }
     
-    
-    //Test
+    //getQuotes tests
     @Test
     void testNullGetAvailable1() {
         ArrayList<String> searchTypes = new ArrayList<>();
