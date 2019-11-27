@@ -9,7 +9,9 @@ import java.util.ArrayList;
  * allows updates to be made to it
  */
 public class Booking implements Deliverable{
+    public static int counter;
     
+    public final int uniqueID;
     private final Customer customer;
     private final Provider provider;
     private final ArrayList<Bike> bikes;
@@ -27,6 +29,8 @@ public class Booking implements Deliverable{
      * if this is null then delivery is not needed
      */
     public Booking(Quote quote, Customer customer, Location address) {
+        this.uniqueID = counter;
+        counter++;
         this.customer = customer;
         this.address = address;
         this.state = "Booked"; //TODO: Add a list of possible states as an attribute and add validation to setter
