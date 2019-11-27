@@ -217,6 +217,14 @@ public class SystemTests {
         ArrayList<Bike> empty = new ArrayList<Bike>();
         assertThrows(AssertionError.class, () -> provider1.calculateDeposit(empty, testDateRange1.getStart()));
     }
+    
+    @Test 
+    void testCalculateHirePriceAssert2() {    // Checks that calculateHirePrice has an assertionError when 
+                                              // passed an empty list of bikes
+        ArrayList<Bike> empty = new ArrayList<Bike>();
+        assertThrows(AssertionError.class, () -> provider1.calculateHirePrice(empty, testDateRange1));
+    }
+    
 
     @Test 
     void testRegularGetQuotes() { // I.e there are providers within range of the customer
