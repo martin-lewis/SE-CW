@@ -45,7 +45,11 @@ public class SystemTests {
     LocalDate date25thNov2019;
     DateRange testDateRange;
     
+    Customer drBees;
     Location drBeesAddress;
+    
+    Customer starMan;
+    Location tooFarAway;
     
     public boolean compareQuoteList(ArrayList<Quote> a, ArrayList<Quote> b) {
         for(Quote quote : a) {
@@ -148,12 +152,12 @@ public class SystemTests {
         ArrayList<Customer> customers = new ArrayList<Customer>();
         // Dr Bees is intended to live within range of the providers
         drBeesAddress = new Location("B84 7BeeR", "Bee street");
-        Customer drBees = new Customer("Doctor", "Bees", "waspThemedSuperHero@beemail.com"
+        drBees = new Customer("Doctor", "Bees", "waspThemedSuperHero@beemail.com"
                 , "01436678850" , drBeesAddress);
         customers.add(drBees);
         // Star Man lives too far away to get his bikes delivered
-        Location tooFarAway = new Location("inSpace", "youHeardThatRight");
-        Customer starMan = new Customer("Star", "Man", "waitingInTheSky@gmail.com"
+        tooFarAway = new Location("inSpace", "youHeardThatRight");
+        starMan = new Customer("Star", "Man", "waitingInTheSky@gmail.com"
                 , "no reception in space", tooFarAway);
         customers.add(starMan);
         
@@ -161,8 +165,13 @@ public class SystemTests {
         
     }
     
-    // TODO: Write system tests covering the three main use cases
+    /* TODO: Write system tests covering the three main use cases
+     * For when customer is out of range
+     */
     
+    
+    
+    //Test
     @Test
     void testNullGetAvailable1() {
         ArrayList<String> searchTypes = new ArrayList<>();
@@ -179,35 +188,6 @@ public class SystemTests {
         ArrayList<Bike> shouldBeNull = provider1.getAvailableBikes(1, searchTypes, testDateRange);
         assertEquals(shouldBeNull, null);
         
-    }
-
-    @Test 
-    void testRegularGet() { // I.e there are providers within range of the customer
-                            // (in this instance, drBees), with bikes available for 
-                            // hire.
-        BigDecimal expectedPrice = new BigDecimal(60);
-        BigDecimal expectedDeposit = new BigDecimal(42);
-        ArrayList<Bike> p1Bikes = new ArrayList<>();
-        p1Bikes.add(MTB11);
-        p1Bikes.add(MTB12);
-        Quote expectedQuote1 = new Quote(p1Bikes, provider1, testDateRange
-                , expectedPrice, expectedDeposit);
-        ArrayList<Bike> p2Bikes = new ArrayList<>();
-        p2Bikes.add(MTB14);
-        p2Bikes.add(MTB15);
-        Quote expectedQuote2 = new Quote(p2Bikes, provider2, testDateRange
-                , expectedPrice, expectedDeposit);
-        ArrayList<Quote> expectedQuotes = new ArrayList<>();
-        expectedQuotes.add(expectedQuote1);
-        expectedQuotes.add(expectedQuote2);
-        ArrayList<String> searchTypes = new ArrayList<>();
-        searchTypes.add("Mountain Bike");
-        ArrayList<Quote> actualQuotes = theController.getQuotes(drBeesAddress
-                , testDateRange, searchTypes, 2);
-        Collections.sort(actualQuotes);
-        Collections.sort(expectedQuotes);
-        boolean testResult = compareQuoteList(actualQuotes, expectedQuotes);
-        assertTrue(testResult);
     }
     
     @Test
@@ -230,4 +210,43 @@ public class SystemTests {
         
         assertTrue(testResult);
     }
+
+    @Test 
+    void testRegularGet() { // I.e there are providers within range of the customer
+                            // (in this instance, drBees), with bikes available for 
+                            // hire.
+        BigDecimal price1 = new BigDecimal(60);
+        BigDecimal price2 = new BigDecimal(42);
+        ArrayList<Bike> p1Bikes = new ArrayList<>();
+        p1Bikes.add(MTB11);
+        p1Bikes.add(MTB12);
+        Quote testQuote1 = new Quote(p1Bikes, provider1, testDateRange
+                , price1, price2);
+        ArrayList<Bike> p2Bikes = new ArrayList<>();
+        p2Bikes.add(MTB14);
+        p2Bikes.add(MTB15);
+        Quote testQuote2 = new Quote(p2Bikes, provider2, testDateRange
+                , price1, price2);
+        ArrayList<Quote> expectedQuotes = new ArrayList<>();
+        expectedQuotes.add(testQuote1);
+        expectedQuotes.add(testQuote2);
+        ArrayList<String> searchTypes = new ArrayList<>();
+        searchTypes.add("Mountain Bike");
+        ArrayList<Quote> actualQuotes = theController.getQuotes(drBeesAddress
+                , testDateRange, searchTypes, 2);
+        Collections.sort(actualQuotes);
+        Collections.sort(expectedQuotes);
+        boolean testResult = compareQuoteList(actualQuotes, expectedQuotes);
+        assertTrue(testResult);
+    }
+    
+    @Test
+    void testGetQuotes() {
+        ArrayList<String> searchTypes = new ArrayList<>();
+        searchTypes.add("Mountain Bike");
+        ArrayList<Quote> actualQuotes = theController.getQuotes(tooFarAway
+                , testDateRange, searchTypes, 2);
+        assertTrue(actualQuotes == null);
+    }
+    
 }
