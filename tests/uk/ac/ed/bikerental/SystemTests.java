@@ -219,7 +219,7 @@ public class SystemTests {
     }
     
     @Test
-    void testCalculateDepositAssert() {     //Checks that calculateDeposit fails when passed bikes not
+    void testCalculateDepositAssert2() {     //Checks that calculateDeposit fails when passed bikes not
                                             // belonging to the provider it is called on
         ArrayList<Bike> notProv1s = new ArrayList<>();
         notProv1s.add(MTB14);
@@ -228,7 +228,7 @@ public class SystemTests {
     }
     
     @Test 
-    void testCalculateHirePriceAssert2() {    // Checks that calculateHirePrice has an assertionError when 
+    void testCalculateHirePriceAssert1() {    // Checks that calculateHirePrice has an assertionError when 
                                               // passed an empty list of bikes
         ArrayList<Bike> empty = new ArrayList<Bike>();
         assertThrows(AssertionError.class, () -> provider1.calculateHirePrice(empty, testDateRange1));
