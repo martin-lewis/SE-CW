@@ -192,6 +192,19 @@ public class SystemTests {
         assertEquals(returnedDeposit, bd50);       
     }
     
+    @Test
+    public void registerPartnerReturnTest2() {
+        provider1.addPartner(provider2);
+        Booking testBooking = theController.bookQuote(testQuote1, drBees, drBeesAddress);
+        BigDecimal returnedDeposit = theController.registerReturnPartner(testBooking, provider2);
+        
+        assertEquals(testBooking.getState(), "Awaiting pickup for return to provider");
+        
+        MockDeliveryService del = (MockDeliveryService) theController.getDeliveryService();
+        del.carryOutPickups(date20thNov2019);
+        assertEquals(testBooking.getState(), "Being delivered");
+    }
+    
     
     // registerReturn tests
     @Test
