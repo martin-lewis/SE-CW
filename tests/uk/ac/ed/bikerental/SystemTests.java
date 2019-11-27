@@ -176,8 +176,15 @@ public class SystemTests {
         Booking testBooking = theController.bookQuote(testQuote1, drBees, null);
         BigDecimal returnedDeposit = theController.registerReturn(testBooking);
         assertEquals(testBooking.getState(), "Returned");
-        assertEquals(returnedDeposit, bd50);
-        
+        assertEquals(returnedDeposit, bd50);       
+    }
+    
+    @Test
+    public void registerReturnTest2() { // Test under normal circumstances
+        Booking testBooking = theController.bookQuote(testQuote1, drBees, drBeesAddress);
+        BigDecimal returnedDeposit = theController.registerReturn(testBooking);
+        assertEquals(testBooking.getState(), "Returned");
+        assertEquals(returnedDeposit, bd50);       
     }
     
    
