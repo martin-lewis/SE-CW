@@ -280,4 +280,13 @@ public class SystemTests {
         assertTrue(actualQuotes == null);
     }
     
+    @Test
+    void testGetQuotesAssertionError() {
+        ArrayList<String> searchTypes = new ArrayList<>();
+        searchTypes.add("Mountain Bike");
+        ArrayList<Quote> actualQuotes = theController.getQuotes(drBeesAddress
+                , testDateRange1, searchTypes, 20);
+        
+    }
+    
 }
