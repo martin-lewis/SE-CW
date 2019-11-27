@@ -55,6 +55,8 @@ public class Booking implements Deliverable{
      */
     protected Booking(Customer customer, Provider provider, ArrayList<Bike> bikes, String state, Location address,
             DateRange duration, BigDecimal cost, BigDecimal deposit) {
+        this.uniqueID = counter;
+        counter++;
         this.customer = customer;
         this.provider = provider;
         this.bikes = bikes;
