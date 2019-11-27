@@ -234,6 +234,12 @@ public class SystemTests {
         assertThrows(AssertionError.class, () -> provider1.calculateHirePrice(empty, testDateRange1));
     }
     
+    @Test
+    void testCalculateHirePriceAssertNotBikes() { //Checks calculateHirePrice has an assertionError when it given
+        ArrayList<Bike> notTheirBikes = new ArrayList<Bike>(); //Bikes that don't belong to it
+        notTheirBikes.add(this.RDB11); //This bike belongs to provider2
+        assertThrows(AssertionError.class, () -> provider1.calculateHirePrice(notTheirBikes, testDateRange1));
+    }
 
     @Test 
     void testRegularGetQuotes() { // I.e there are providers within range of the customer
