@@ -193,12 +193,16 @@ public class SystemTests {
     }
     
     @Test
-    public void registerPartnerReturnTest2() { // Test under normal circumstances when booking has an address
+    public void registerPartnerReturnTest2() {
         provider1.addPartner(provider2);
         Booking testBooking = theController.bookQuote(testQuote1, drBees, drBeesAddress);
         BigDecimal returnedDeposit = theController.registerReturnPartner(testBooking, provider2);
+        
         assertEquals(testBooking.getState(), "Awaiting pickup for return to provider");
-        assertEquals(returnedDeposit, bd50);       
+        
+        MockDeliveryService del = (MockDeliveryService) theController.getDeliveryService();
+        del.carryOutPickups(date20thNov2019);
+        assertEquals(testBooking.getState(), "Being delivered");
     }
     
     
