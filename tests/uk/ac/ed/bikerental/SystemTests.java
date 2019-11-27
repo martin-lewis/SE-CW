@@ -219,6 +219,14 @@ public class SystemTests {
         assertTrue(testQuote1.getProvider().getBookings().contains(testBooking));
     }
     
+    @Test
+    void testRegularBook6() {   // Tests that booking is added to provider
+        Booking testBooking = theController.bookQuote(testQuote1, drBees, drBeesAddress);
+        MockDeliveryService del = (MockDeliveryService) theController.getDeliveryService();
+        del.carryOutPickups(date20thNov2019);
+        assertEquals(testBooking.getState(), "Being delivered");
+    }
+    
     //getQuotes tests
     @Test
     void testNullGetAvailable1() {
