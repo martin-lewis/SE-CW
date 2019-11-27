@@ -149,6 +149,8 @@ public class Controller {
      * @return The booking generates by this method 
      */
     public Booking bookQuote(Quote quote, Customer customer, Location address) {
+        assert(quote != null);
+        assert(customer != null);
         Booking booking = new Booking(quote, customer, address); //Creates a booking object
         
         sendEmail(customer.getEmail(), this.makeEmailBodyBooking(booking)); //Sends an email
