@@ -220,6 +220,21 @@ public class SystemTests {
     }
     
     @Test
+    void testRegularBook5() {
+        Booking testBooking = theController.bookQuote(testQuote1, drBees, drBeesAddress);
+        ArrayList<Bike> q1Bikes= new ArrayList<>();
+        q1Bikes.add(MTB11);
+        q1Bikes.add(MTB12);
+        assertEquals(testBooking.getBikes(), q1Bikes);
+        assertEquals(testBooking.getCustomer(), drBees);
+        assertEquals(testBooking.getProvider(), provider1);
+        assertEquals(testBooking.getDeposit(), bd50);
+        assertEquals(testBooking.getCost(), bd50);
+        assertEquals(testBooking.getDuration(), testDateRange1);
+        assertEquals(testBooking.getState(), "Booked");
+    }
+    
+    @Test
     void testRegularBook6() {   // Tests that booking is added to provider
         Booking testBooking = theController.bookQuote(testQuote1, drBees, drBeesAddress);
         MockDeliveryService del = (MockDeliveryService) theController.getDeliveryService();
