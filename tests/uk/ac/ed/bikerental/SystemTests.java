@@ -281,11 +281,12 @@ public class SystemTests {
     }
     
     @Test
-    void testGetQuotesAssertionError() {
+    void testGetQuotesNotEnoughBikes() {
         ArrayList<String> searchTypes = new ArrayList<>();
         searchTypes.add("Mountain Bike");
         ArrayList<Quote> actualQuotes = theController.getQuotes(drBeesAddress
                 , testDateRange1, searchTypes, 20);
+        assertTrue(null == actualQuotes);
         
     }
     
