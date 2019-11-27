@@ -241,7 +241,8 @@ public class SystemTests {
     }
     
     @Test
-    void testGetQuotes() {
+    void testGetQuotesOutOfRange() {    // Checks that GetQuotes does not return when the customer 
+                                        // is out of range of providers
         ArrayList<String> searchTypes = new ArrayList<>();
         searchTypes.add("Mountain Bike");
         ArrayList<Quote> actualQuotes = theController.getQuotes(tooFarAway
