@@ -130,9 +130,10 @@ public class Controller {
      * if required
      * @param quote The Quote that is being booked
      * @param customer A Customer object containing the customers details
-     * @param address The address for bike delivery, 
+     * @param address The address for bike delivery
+     * @return The booking generates by this method 
      */
-    public void bookQuote(Quote quote, Customer customer, Location address) {
+    public Booking bookQuote(Quote quote, Customer customer, Location address) {
         Booking booking = new Booking(quote, customer, address); //Creates a booking object
         sendEmail(customer.getEmail(), "Placeholder"); //Sends an email TODO add the body of the email
         Provider provider = quote.getProvider(); //Gathers needed details from the quote
@@ -150,6 +151,7 @@ public class Controller {
         if (address != null) { //If an address has been provided, i.e. they want delivery
             this.deliveryService.scheduleDelivery(booking, providerAddress, address, startDate); //Delivery is scheduled
         }
+        return booking;
         
     }
 
