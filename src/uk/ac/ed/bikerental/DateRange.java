@@ -3,7 +3,6 @@ package uk.ac.ed.bikerental;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
-import java.util.function.BooleanSupplier;
 
 /**
  * This class is used to hold a date range made up of a start
