@@ -186,7 +186,17 @@ public class SystemTests {
     //bookQuotes tests
     @Test
     void testRegularBook1() {
-        
+        Booking testBooking = new Booking(testQuote1, drBees, null);
+        ArrayList<Bike> q1Bikes= new ArrayList<>();
+        q1Bikes.add(MTB11);
+        q1Bikes.add(MTB12);
+        assertEquals(testBooking.getBikes(), q1Bikes);
+        assertEquals(testBooking.getCustomer(), drBees);
+        assertEquals(testBooking.getProvider(), provider1);
+        assertEquals(testBooking.getDeposit(), bd50);
+        assertEquals(testBooking.getCost(), bd50);
+        assertEquals(testBooking.getDuration(), testDateRange1);
+        assertEquals(testBooking.getState(), "Booked");
     }
     
     //getQuotes tests
