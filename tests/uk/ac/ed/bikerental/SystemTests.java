@@ -172,9 +172,15 @@ public class SystemTests {
     
     // registerReturnPartner test
     @Test
-    public void parterReturnAssertion1() {
+    public void parterReturnAssertion1() {  // Tests for when you pass it itself as a partner
         Booking testBooking = theController.bookQuote(testQuote1, drBees, null);
         assertThrows(AssertionError.class, () -> theController.registerReturnPartner(testBooking, provider1));
+    }
+    
+    @Test
+    public void parterReturnAssertion2() {  // Tests for when you pass it a partner that it doesn't have
+        Booking testBooking = theController.bookQuote(testQuote1, drBees, null);
+        assertThrows(AssertionError.class, () -> theController.registerReturnPartner(testBooking, provider2));
     }
     
     @Test
