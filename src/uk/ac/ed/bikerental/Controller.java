@@ -53,6 +53,7 @@ public class Controller {
      * @return A BigDecimal representing the deposit owed in pounds
      */
     public BigDecimal registerReturnPartner(Booking booking, Provider partner) {
+        assert(partner.equals(booking.getProvider()));
         Location partAddress = partner.getAddress();
         Location provAddress = booking.getProviderAddress();
         LocalDate pickupDate = booking.getEndDate();
