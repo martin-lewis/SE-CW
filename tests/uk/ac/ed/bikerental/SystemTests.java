@@ -164,28 +164,23 @@ public class SystemTests {
         
     }
     
+   
+    /* TODO: Write system tests covering the three main use cases
+     */
+   
+    //bookQuotes tests
     @Test
-    public void bookQuoteAssertion1() {
+    public void bookQuoteAssertion1() {     // Tests that assertion error is thrown when no quote
         assertThrows(AssertionError.class, () -> theController.bookQuote(null, drBees, null));
     }
     
     @Test
-    public void bookQuoteAssertion2() {
+    public void bookQuoteAssertion2() {     // Tests that assertion error is thrown when no customer
         assertThrows(AssertionError.class, () -> theController.bookQuote(testQuote1, null, null));
     }
-    /* TODO: Write system tests covering the three main use cases
-     * For bookQuotes
-     * - normal one: test that the booking's attributes are good
-     * - normal one: test that bikes are set unavailable
-     * - normal ones: check booking is added to customer
-     * -              and provider
-     * - normal ones: where address is provided
-     * - assertionError ones
-     */
     
-    //bookQuotes tests
     @Test
-    void testRegularBook1() {
+    void testRegularBook1() {   // Tests that attributes are set properly when no address is given
         Booking testBooking = theController.bookQuote(testQuote1, drBees, null);
         ArrayList<Bike> q1Bikes= new ArrayList<>();
         q1Bikes.add(MTB11);
@@ -220,7 +215,7 @@ public class SystemTests {
     }
     
     @Test
-    void testRegularBook5() {
+    void testRegularBook5() {   // Tests that attributes are set correctly when address is added
         Booking testBooking = theController.bookQuote(testQuote1, drBees, drBeesAddress);
         ArrayList<Bike> q1Bikes= new ArrayList<>();
         q1Bikes.add(MTB11);
@@ -232,6 +227,7 @@ public class SystemTests {
         assertEquals(testBooking.getCost(), bd50);
         assertEquals(testBooking.getDuration(), testDateRange1);
         assertEquals(testBooking.getState(), "Booked");
+        assertEquals(testBooking.getAddress(), drBeesAddress);
     }
     
     @Test
