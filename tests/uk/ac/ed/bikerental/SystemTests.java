@@ -205,6 +205,15 @@ public class SystemTests {
         assertEquals(testBooking.getState(), "Being delivered");
     }
     
+    @Test
+    public void registerPartnerReturnTest3() { // Test under normal circumstances with an address
+        provider1.addPartner(provider2);
+        Booking testBooking = theController.bookQuote(testQuote1, drBees, drBeesAddress);
+        BigDecimal returnedDeposit = theController.registerReturnPartner(testBooking, provider2);
+        assertEquals(testBooking.getState(), "Awaiting pickup for return to provider");
+        assertEquals(returnedDeposit, bd50);       
+    }
+    
     
     // registerReturn tests
     @Test
