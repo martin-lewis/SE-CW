@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class TestDateRange {
-    private DateRange dateRange1, dateRange2, dateRange3, dateRange4;
+    private DateRange dateRange1, dateRange2, dateRange3, dateRange4, dateRange5;
 
     @BeforeEach
     void setUp() throws Exception {
@@ -21,6 +21,8 @@ class TestDateRange {
                 LocalDate.of(2018, 1, 10));
         this.dateRange4 = new DateRange(LocalDate.of(2015, 1, 7),
                 LocalDate.of(2018, 1, 10));
+        this.dateRange5 = new DateRange(LocalDate.of(2019, 1, 9),
+                LocalDate.of(2019, 1, 12));
     }
 
     // Sample JUnit tests checking toYears works
@@ -68,4 +70,5 @@ class TestDateRange {
     void testToDaysMany() {
         assertEquals(18, this.dateRange2.toDays());
     }
+
 }
