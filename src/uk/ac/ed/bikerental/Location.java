@@ -50,6 +50,11 @@ public class Location {
     
     // You can add your own methods here
     
+    /**
+     * Gives a string representation of the location, consisting of the address, followed by the 
+     * postcode, seperates by a space
+     * @return the location as a string
+     */
     @Override
     public String toString() {
         return address + " " + postcode;
