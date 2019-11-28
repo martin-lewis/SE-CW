@@ -155,11 +155,7 @@ public class Booking implements Deliverable{
     @Override
     public void onPickup() {
         // TODO Auto-generated method stub
-        if (this.getState() == "Awaiting pickup for return to provider") {
-            this.updateStatus("Being delivered to provider");
-        } else {
-            this.updateStatus("Being delivered to Customer");
-        }
+        this.updateStatus("Being delivered");
     }
 
     @Override
