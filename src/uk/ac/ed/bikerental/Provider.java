@@ -75,9 +75,36 @@ public class Provider {
         for (Bike bike : bikes) {
             bike.setUnavailable(duration);
         }
+    } 
+
+    public BigDecimal calculateHirePrice(ArrayList<Bike> bikes, DateRange duration) {
+        assert(bikes.size() > 0); //Tests that some bikes have been passed to the method
+        for (Bike bike : bikes) { //Checks that all the passed bikes belong to the provider
+            assert(this.bikeList.contains(bike));
+        }
+        return this.pricingPolicy.calculatePrice(bikes, duration);
+    }
+    /**
+     * Method that calculates the deposit given a set of bikes, calls a set of methods on the bikes
+     * @param bikes A list of bikes hopefully that belong to the provider
+     * @return A big decimal with the value of the deposit
+     */
+    public BigDecimal calculateDeposit(ArrayList<Bike> bikes, LocalDate date) {
+        assert(bikes.size() > 0); //Tests that some bikes have been passed to the method
+        for (Bike bike : bikes) { //Checks that all the passed bikes belong to the provider
+            assert(this.bikeList.contains(bike));
+        }
+        BigDecimal total = new BigDecimal(0); //Creates a total to hold the value
+        for (Bike bike : bikes) { //For each bike given
+            total = total.add(this.ValuationPolicy.calculateValue(bike, date)); //Uses valuation to find each deposit
+        }
+        return total.multiply(depositRate); //Multiplies this by the provider rate
     }
     
-    //Getters and setters
+    /*  ------------------------------------------------------
+    *                   Getters and setters
+    *   ------------------------------------------------------ */
+    
     public String getName() {
         return name;
     }
@@ -137,6 +164,7 @@ public class Provider {
         assert(bike != null);
         this.bikeList.add(bike);
     }
+    
     /**
      * Removes a given bike from the list, if passed a bike not in the list will do nothing
      * @param bike The bike to remove
@@ -197,29 +225,6 @@ public class Provider {
         this.pricingPolicy.setDailyRentalPrice(bikeType, price);
     }
     
-    public BigDecimal calculateHirePrice(ArrayList<Bike> bikes, DateRange duration) {
-        assert(bikes.size() > 0); //Tests that some bikes have been passed to the method
-        for (Bike bike : bikes) { //Checks that all the passed bikes belong to the provider
-            assert(this.bikeList.contains(bike));
-        }
-        return this.pricingPolicy.calculatePrice(bikes, duration);
-    }
-    /**
-     * Method that calculates the deposit given a set of bikes, calls a set of methods on the bikes
-     * @param bikes A list of bikes hopefully that belong to the provider
-     * @return A big decimal with the value of the deposit
-     */
-    public BigDecimal calculateDeposit(ArrayList<Bike> bikes, LocalDate date) {
-        assert(bikes.size() > 0); //Tests that some bikes have been passed to the method
-        for (Bike bike : bikes) { //Checks that all the passed bikes belong to the provider
-            assert(this.bikeList.contains(bike));
-        }
-        BigDecimal total = new BigDecimal(0); //Creates a total to hold the value
-        for (Bike bike : bikes) { //For each bike given
-            total = total.add(this.ValuationPolicy.calculateValue(bike, date)); //Uses valuation to find each deposit
-        }
-        return total.multiply(depositRate); //Multiplies this by the provider rate
-    }
     
     
 }
