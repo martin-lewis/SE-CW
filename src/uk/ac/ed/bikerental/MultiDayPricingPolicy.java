@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.HashMap;
 
-public class APricingPolicy implements PricingPolicy {
+public class MultiDayPricingPolicy implements PricingPolicy {
     
     private HashMap<Long,Integer> policy; //Maps number of days to discount
     private HashMap<BikeType, BigDecimal> pricing;
@@ -13,7 +13,7 @@ public class APricingPolicy implements PricingPolicy {
      * Constructor for APricingPolicy. Initialises policy wth a 
      *  single entry for a 0% discount on day 0
      */
-    public APricingPolicy () {
+    public MultiDayPricingPolicy () {
         policy = new HashMap<Long, Integer>();
         policy.put((long) 0, 0);
         pricing = new HashMap<BikeType, BigDecimal>();

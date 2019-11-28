@@ -12,7 +12,7 @@ import org.junit.jupiter.api.*;
 public class PricingPolicyTests {
     // You can add attributes here
     
-    private APricingPolicy testPolicy;
+    private MultiDayPricingPolicy testPolicy;
     private ArrayList<Bike> testBikes;
     private DateRange dates;
     BigDecimal actualVal;
@@ -20,7 +20,7 @@ public class PricingPolicyTests {
 
     @BeforeEach
     void setUp() throws Exception {
-        testPolicy = new APricingPolicy();       
+        testPolicy = new MultiDayPricingPolicy();       
         dates = new DateRange(LocalDate.of(2019,10,1),LocalDate.of(2019,10,5));       
         BigDecimal testPrice = new BigDecimal(50);
         BikeType testType = new BikeType(testPrice, testPrice, "testGenericType");
