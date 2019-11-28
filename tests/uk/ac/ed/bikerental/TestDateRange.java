@@ -33,23 +33,39 @@ class TestDateRange {
     void testToYears3() {
         assertEquals(3, this.dateRange3.toYears());
     }
-
+    //Testing the overlap
     @Test
     void testOverlapsTrue() {
         //check we can see when two date ranges overlap
         boolean overlaps = this.dateRange1.overlaps(this.dateRange2);
         assertEquals(overlaps, true);
     }
-
+ 
     @Test
     void testOverlapsFalse() {
         //check we can see when two date ranges  don't overlap
         boolean overlaps = this.dateRange1.overlaps(this.dateRange3);
         assertEquals(overlaps, false);
     }
-    
+    //Testing equals
     @Test
     void testEquals() {
         assertTrue(this.dateRange3.equals(this.dateRange4));
+    }
+    
+    @Test
+    void testNotEqual() {
+        assertFalse(this.dateRange1.equals(dateRange4));
+    }
+    
+    //Testing toDays()
+    @Test
+    void testToDays3() {
+        assertEquals(3, this.dateRange1.toDays());
+    }
+    
+    @Test
+    void testToDaysMany() {
+        assertEquals(18, this.dateRange2.toDays());
     }
 }
