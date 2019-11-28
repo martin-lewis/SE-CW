@@ -36,15 +36,6 @@ public class Controller {
         return booking.providerReturn();
     }
     
-    private String generateReturnEmail(Booking booking, Provider partner) {
-        String body = "Booking ID: " + Integer.toString(booking.uniqueID) + "\n Containing the following"
-                + "bikes: \n";
-        for(Bike bike : booking.getBikes()) {
-            body += " " + bike.toString() + "\n";
-        }
-        body += "was returned to" + partner.getName();
-        return body;
-    }
     /**
      * Registers the return of a booking to a partner of its provider.
      * Note that input validation need not be done on the partner,
@@ -59,7 +50,7 @@ public class Controller {
         Location provAddress = booking.getProviderAddress();
         LocalDate pickupDate = booking.getEndDate();
         deliveryService.scheduleDelivery(booking, partAddress, provAddress, pickupDate);
-        String email = generateReturnEmail(booking, partner);
+        String email = makeEmailBodyReturn(booking, partner);
         String provEmail = booking.getProviderEmail();
         sendEmail(email, provEmail);
         return booking.partnerReturn();
@@ -75,6 +66,33 @@ public class Controller {
     private void sendEmail(String email, String address) {
         return;
     }
+    
+    private String makeEmailBodyBooking(Booking booking) {
+        String emailBody = "";
+        emailBody = emailBody + "Booking number: " + Integer.toString(booking.uniqueID) + "\n";
+        emailBody = emailBody + "Total Price: " + (booking.getCost().toString()) + "\n";
+        emailBody = emailBody + "Deposit: " + (booking.getDeposit().toString()) + "\n";
+        emailBody = emailBody + "The bikes are \n";
+        for (Bike bike : booking.getBikes()) {
+            emailBody = emailBody + " " + bike.toString() + "\n";
+        }
+        if (booking.getAddress() != null) {
+            emailBody = emailBody + "Being delivered to " + booking.getAddress().toString();
+        }
+        return emailBody;
+    }
+    
+
+    private String makeEmailBodyReturn(Booking booking, Provider partner) {
+        String body = "Booking ID: " + Integer.toString(booking.uniqueID) + "\n Containing the following"
+                + "bikes: \n";
+        for(Bike bike : booking.getBikes()) {
+            body += " " + bike.toString() + "\n";
+        }
+        body += "was returned to" + partner.getName();
+        return body;
+    }
+    
     /**
      * This method takes a set of conditions and attempts to find suitable quotes within the providers listed
      * in the controller. If no quotes can be found within the dates given then it will check 3 days either side of
@@ -142,12 +160,13 @@ public class Controller {
         */
         return null;
     }
+    
     /**
      * Take a quote and confirms it as a booking updating the internal state and scheduling delivery
      * if required
      * @param quote The Quote that is being booked
      * @param customer A Customer object containing the customers details
-     * @param address The address for bike delivery
+     * @param address The address for bike delivery, left as null if delivery is not required
      * @return The booking generates by this method 
      */
     public Booking bookQuote(Quote quote, Customer customer, Location address) {
@@ -171,25 +190,9 @@ public class Controller {
         if (address != null) { //If an address has been provided, i.e. they want delivery
             this.deliveryService.scheduleDelivery(booking, providerAddress, address, startDate); //Delivery is scheduled
         }
-        return booking;
-        
+        return booking;       
     }
     
-    private String makeEmailBodyBooking(Booking booking) {
-        String emailBody = "";
-        emailBody = emailBody + "Booking number: " + Integer.toString(booking.uniqueID) + "\n";
-        emailBody = emailBody + "Total Price: " + (booking.getCost().toString()) + "\n";
-        emailBody = emailBody + "Deposit: " + (booking.getDeposit().toString()) + "\n";
-        emailBody = emailBody + "The bikes are \n";
-        for (Bike bike : booking.getBikes()) {
-            emailBody = emailBody + " " + bike.toString() + "\n";
-        }
-        if (booking.getAddress() != null) {
-            emailBody = emailBody + "Being delivered to " + booking.getAddress().toString();
-        }
-
-
-        return emailBody;
-    }
+    
 
 }
