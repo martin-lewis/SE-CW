@@ -15,9 +15,6 @@ public class Bike implements Comparable {
     private final BikeType bikeType;
     private Provider provider;
     private String status;
-    // TODO remove variables that are actually stored within bikeType
-    private BigDecimal replacementCost;
-    private BigDecimal dailyHireCost;
     private int age;
     private ArrayList<DateRange> unavailabilities;
     private ArrayList<String> possibleStates;
@@ -57,18 +54,8 @@ public class Bike implements Comparable {
         return bikeType.getReplacementValue();
     }
     
-    // TODO remove 
-    public void setReplacementCost(BigDecimal replacementCost) {
-        this.replacementCost = replacementCost;
-    }
-
     public BigDecimal getDailyHireCost() {
         return bikeType.getDailyPrice();
-    }
-    
-    // TODO remove
-    public void setDailyHireCost(BigDecimal dailyHireCost) {
-        this.dailyHireCost = dailyHireCost;
     }
 
     public int getAge() {
@@ -98,7 +85,7 @@ public class Bike implements Comparable {
      * Updates the status of the bike
      * @param newStatus The status that you want to set to
      */
-    public void setStatus(String newStatus) {
+    public void updateStatus(String newStatus) {
         if (this.possibleStates.contains(newStatus)) {
             this.status = newStatus;
         } else {
