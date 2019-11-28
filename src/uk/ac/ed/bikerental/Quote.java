@@ -87,7 +87,10 @@ public class Quote implements Comparable{
         return deposit;
     }
     /**
-     * Function that in required for the class to implement Comparable
+     * Function that in required for the class to implement Comparable.
+     * It simply takes the unique ID of the object its called on and subtracts
+     * the id of the object passed. This will order them with the first initialised
+     * first
      */
     @Override
     public int compareTo(Object o) {
