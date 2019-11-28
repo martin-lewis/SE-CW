@@ -163,7 +163,7 @@ public class Booking implements Deliverable{
     public void onDropoff() {
         // TODO Auto-generated method stub
         if(this.state == BookingState.BEINGDELIVEREDCUSTOMER) {
-            this.updateStatus(BookingState.DELIVERED);
+            this.updateStatus(BookingState.WITHCUSTOMER);
         }
         else {
             this.updateStatus(BookingState.RETURNED);
