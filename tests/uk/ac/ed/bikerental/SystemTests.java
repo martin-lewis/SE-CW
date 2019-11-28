@@ -407,6 +407,21 @@ public class SystemTests {
         assertTrue(testResult);
     }
     
+    @Test 
+    void testRegularGetQuotesMock() { // Checks that our MockValuationPolicy works right
+        BigDecimal price1 = new BigDecimal(125);
+        BigDecimal price2 = new BigDecimal(42);
+        MockValuationPolicy mockPol = new MockValuationPolicy();
+        MTB11.setAge(5);
+        provider1.setDepositPolicy(mockPol);
+        ArrayList<String> searchTypes = new ArrayList<>();
+        searchTypes.add("Mountain Bike");
+        ArrayList<Quote> actualQuotes = theController.getQuotes(drBeesAddress
+                , testDateRange1, searchTypes, 1);
+        Collections.sort(actualQuotes);
+        assertEquals(actualQuotes.get(0).getDeposit().stripTrailingZeros(), price1.stripTrailingZeros());
+    }
+    
     @Test
     void testGetQuotesOutOfRange() {    // Checks that GetQuotes does not return when the customer 
                                         // is out of range of providers
