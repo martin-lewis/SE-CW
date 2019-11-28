@@ -14,10 +14,9 @@ public class Bike implements Comparable {
     private final int uniqueID; //This is needed to do the comparisons
     private final BikeType bikeType;
     private Provider provider;
-    private String status;
+    private BikeState status;
     private int age;
     private ArrayList<DateRange> unavailabilities;
-    private ArrayList<String> possibleStates;
     
     /**
      * Constructor for Bike
@@ -28,11 +27,8 @@ public class Bike implements Comparable {
         counter += 1; //Increments the counter
         this.bikeType = bikeType;
         this.age = 0;
-        this.status = "Available";
+        this.status = BikeState.AVAILABLE;
         this.unavailabilities = new ArrayList<>();
-        this.possibleStates = new ArrayList<String>();
-        this.possibleStates.add("Available");
-        this.possibleStates.add("Unavailable");
     }
     
     public boolean equals(Bike bike) {
@@ -74,7 +70,7 @@ public class Bike implements Comparable {
         return provider;
     }
 
-    public String getStatus() {
+    public BikeState getStatus() {
         return status;
     }
 
@@ -85,12 +81,8 @@ public class Bike implements Comparable {
      * Updates the status of the bike
      * @param newStatus The status that you want to set to
      */
-    public void updateStatus(String newStatus) {
-        if (this.possibleStates.contains(newStatus)) {
-            this.status = newStatus;
-        } else {
-            throw new IllegalArgumentException("Not valid State");
-        }
+    public void updateStatus(BikeState newStatus) {
+        this.status = newStatus;
     }
     
     /**

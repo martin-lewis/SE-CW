@@ -86,7 +86,7 @@ public class Booking implements Deliverable{
     public BigDecimal providerReturn() {
         updateStatus(BookingState.RETURNED);
         for(Bike bike: bikes) {
-            bike.updateStatus("Available");
+            bike.updateStatus(BikeState.AVAILABLE);
         }
         return this.deposit;
     }
@@ -152,6 +152,10 @@ public class Booking implements Deliverable{
         }
         else {
             this.updateStatus(BookingState.BEINGDELIVEREDCUSTOMER);
+            for(Bike bike: bikes) {
+                bike.updateStatus(BikeState.UNAVAILABLE);
+            }
+            
         }
     }
 
