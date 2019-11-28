@@ -12,7 +12,7 @@ class TestLocation {
     // TODO: put some tests here
     
     @Test
-    public void isNearTrue() {
+    public void isNearTrue() { //Tests the isNear() function with some basic cases
         Location a1 = new Location("EH12 5JH", "an address");
         Location a2 = new Location("EH14 H7Y", "some address");
         assertTrue(a1.isNearTo(a2));
@@ -31,7 +31,7 @@ class TestLocation {
     }
     
     @Test
-    public void isNearFalse() {
+    public void isNearFalse() { //Tests isNear() with values that should return false
         Location a1 = new Location("NG12 5JH", "an address");
         Location a2 = new Location("EH14 H7Y", "some address");
         assertFalse(a1.isNearTo(a2));

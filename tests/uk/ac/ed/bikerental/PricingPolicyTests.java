@@ -20,19 +20,19 @@ public class PricingPolicyTests {
 
     @BeforeEach
     void setUp() throws Exception {
-        testPolicy = new MultiDayPricingPolicy();       
-        dates = new DateRange(LocalDate.of(2019,10,1),LocalDate.of(2019,10,5));       
+        testPolicy = new MultiDayPricingPolicy(); //Creates our policy       
+        dates = new DateRange(LocalDate.of(2019,10,1),LocalDate.of(2019,10,5)); //Test dates   
         BigDecimal testPrice = new BigDecimal(50);
         BikeType testType = new BikeType(testPrice, testPrice, "testGenericType");
         testBikes = new ArrayList<Bike>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) { //Creates a number of bikes to test
             testBikes.add(new Bike(testType));
         }
         actualVal = new BigDecimal(2500);
     }
     
     @Test
-    public void noDiscount() {
+    public void noDiscount() { //Tests the policy when there are no tests yet added only the default
         BigDecimal calcVal = testPolicy.calculatePrice(testBikes, dates);
         assertEquals(calcVal.stripTrailingZeros(), actualVal.stripTrailingZeros());
     }
@@ -64,7 +64,7 @@ public class PricingPolicyTests {
         
     }
     @Test
-    public void multiMonthDateRange() {
+    public void multiMonthDateRange() { //Tests that it works when there are different months involved
         dates = new DateRange(LocalDate.of(2019,10,1),LocalDate.of(2019,11,1));
         BigDecimal calcVal = testPolicy.calculatePrice(testBikes, dates);
         actualVal = new BigDecimal(16000);
@@ -91,7 +91,7 @@ public class PricingPolicyTests {
         assertEquals(calcVal.stripTrailingZeros(), actualVal.stripTrailingZeros());
     }
     @Test
-    public void nullBikes() {
+    public void nullBikes() { //Tests when the list of bikes is null
         testBikes = null;
         assertThrows(AssertionError.class, () -> testPolicy.calculatePrice(testBikes, dates));
     }
