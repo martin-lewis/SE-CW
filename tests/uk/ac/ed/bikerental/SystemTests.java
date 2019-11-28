@@ -165,62 +165,67 @@ public class SystemTests {
     }
     
    
-    /* TODO: Write system tests covering the three main use cases
-     * registerReturn tests:
-     * - test under normal circumstances 
-     */
     
     // registerReturnPartner test
     @Test
-    public void parterReturnAssertion1() {  // Tests for when you pass it itself as a partner
+    public void parterReturnAssertion1() {  // Tests that an assertionError is thrown when you pass a 
+                                            // provider itself
         Booking testBooking = theController.bookQuote(testQuote1, drBees, null);
         assertThrows(AssertionError.class, () -> theController.registerReturnPartner(testBooking, provider1));
     }
     
     @Test
     public void parterReturnAssertion2() {  // Tests for when you pass it a partner that it doesn't have
+                                            // - an assertion error should be home
         Booking testBooking = theController.bookQuote(testQuote1, drBees, null);
         assertThrows(AssertionError.class, () -> theController.registerReturnPartner(testBooking, provider2));
     }
     
     @Test
     public void registerPartnerReturnTest1() { // Test under normal circumstances
+                                               // - this test ensures that state is properly set, and
+                                               //   that price is properly calculated
         provider1.addPartner(provider2);
         Booking testBooking = theController.bookQuote(testQuote1, drBees, null);
         BigDecimal returnedDeposit = theController.registerReturnPartner(testBooking, provider2);
-        assertEquals(testBooking.getState(), "Awaiting pickup for return to provider");
+        assertEquals(testBooking.getState(), BookingState.AWAITING_PROVIDER_RETURN_PICKUP);
         assertEquals(returnedDeposit, bd50);       
     }
     
     @Test
-    public void registerPartnerReturnTest2() {
+    public void registerPartnerReturnTest2() {  // Tests that delivery service works
+                                                // - the state of the bikes should be updated to reflect
+                                                //   awaiting pickup, and again when being delivered
         provider1.addPartner(provider2);
         Booking testBooking = theController.bookQuote(testQuote1, drBees, drBeesAddress);
         BigDecimal returnedDeposit = theController.registerReturnPartner(testBooking, provider2);
         
-        assertEquals(testBooking.getState(), "Awaiting pickup for return to provider");
+        assertEquals(testBooking.getState(), BookingState.AWAITING_PROVIDER_RETURN_PICKUP);
         
         MockDeliveryService del = (MockDeliveryService) theController.getDeliveryService();
         del.carryOutPickups(date20thNov2019);
-        assertEquals(testBooking.getState(), "Being delivered");
+        assertEquals(testBooking.getState(), BookingState.BEINGDELIVEREDPROVIDER);
     }
     
     @Test
-    public void registerPartnerReturnTest3() { // Test under normal circumstances with an address
+    public void registerPartnerReturnTest3() { // Tests same functionaly as test 1, but with an address 
+                                               // given to the booking
         provider1.addPartner(provider2);
         Booking testBooking = theController.bookQuote(testQuote1, drBees, drBeesAddress);
         BigDecimal returnedDeposit = theController.registerReturnPartner(testBooking, provider2);
-        assertEquals(testBooking.getState(), "Awaiting pickup for return to provider");
+        assertEquals(testBooking.getState(), BookingState.AWAITING_PROVIDER_RETURN_PICKUP);
         assertEquals(returnedDeposit, bd50);       
     }
     
     
     // registerReturn tests
     @Test
-    public void registerReturnTest1() { // Test under normal circumstances
+    public void registerReturnTest1() { // Tests that booking state is properly updated when the bike
+                                        // is returned, and also checks that the state of the bike
+                                        // is properly changed
         Booking testBooking = theController.bookQuote(testQuote1, drBees, null);
         BigDecimal returnedDeposit = theController.registerReturn(testBooking);
-        assertEquals(testBooking.getState(), "Returned");
+        assertEquals(testBooking.getState(), BookingState.RETURNED);
         assertEquals(returnedDeposit, bd50);       
     }
     
@@ -228,7 +233,7 @@ public class SystemTests {
     public void registerReturnTest2() { // Test under normal circumstances
         Booking testBooking = theController.bookQuote(testQuote1, drBees, drBeesAddress);
         BigDecimal returnedDeposit = theController.registerReturn(testBooking);
-        assertEquals(testBooking.getState(), "Returned");
+        assertEquals(testBooking.getState(), BookingState.RETURNED);
         assertEquals(returnedDeposit, bd50);       
     }
     
@@ -256,7 +261,7 @@ public class SystemTests {
         assertEquals(testBooking.getDeposit(), bd50);
         assertEquals(testBooking.getCost(), bd50);
         assertEquals(testBooking.getDuration(), testDateRange1);
-        assertEquals(testBooking.getState(), "Booked");
+        assertEquals(testBooking.getState(), BookingState.BOOKED);
     }
     
     @Test
@@ -291,7 +296,7 @@ public class SystemTests {
         assertEquals(testBooking.getDeposit(), bd50);
         assertEquals(testBooking.getCost(), bd50);
         assertEquals(testBooking.getDuration(), testDateRange1);
-        assertEquals(testBooking.getState(), "Booked");
+        assertEquals(testBooking.getState(), BookingState.BOOKED);
         assertEquals(testBooking.getAddress(), drBeesAddress);
     }
     
@@ -300,7 +305,7 @@ public class SystemTests {
         Booking testBooking = theController.bookQuote(testQuote1, drBees, drBeesAddress);
         MockDeliveryService del = (MockDeliveryService) theController.getDeliveryService();
         del.carryOutPickups(date20thNov2019);
-        assertEquals(testBooking.getState(), "Being delivered");
+        assertEquals(testBooking.getState(), BookingState.BEINGDELIVEREDCUSTOMER);
     }
     
     //getQuotes tests

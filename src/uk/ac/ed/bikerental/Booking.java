@@ -15,12 +15,11 @@ public class Booking implements Deliverable{
     private final Customer customer;
     private final Provider provider;
     private final ArrayList<Bike> bikes;
-    private String state;
+    private BookingState state;
     private final Location address;
     private final DateRange duration;
     private final BigDecimal cost;
     private final BigDecimal deposit;
-    private ArrayList<String> possibleStates;
     
     /**
      * The main constructor for Booking which takes a quote and turns it
@@ -35,18 +34,12 @@ public class Booking implements Deliverable{
         counter++;
         this.customer = customer;
         this.address = address;
-        this.state = "Booked"; //TODO: Add a list of possible states as an attribute and add validation to setter
+        this.state = BookingState.BOOKED; 
         this.provider = quote.getProvider();
         this.bikes = quote.getBikes();
         this.duration = quote.getDuration();
         this.cost = quote.getCost();
         this.deposit = quote.getDeposit();
-        this.possibleStates = new ArrayList<String>();
-        this.possibleStates.add("Booked");
-        this.possibleStates.add("Being delivered");
-        this.possibleStates.add("Delivered");
-        this.possibleStates.add("Awaiting pickup for return to provider");
-        this.possibleStates.add("Returned");
         
     }
     
@@ -61,7 +54,7 @@ public class Booking implements Deliverable{
      * @param cost The total cost of hiring the bikes
      * @param deposit The deposit required
      */
-    protected Booking(Customer customer, Provider provider, ArrayList<Bike> bikes, String state, Location address,
+    protected Booking(Customer customer, Provider provider, ArrayList<Bike> bikes, BookingState state, Location address,
             DateRange duration, BigDecimal cost, BigDecimal deposit) {
         this.uniqueID = counter;
         counter++;
@@ -83,19 +76,18 @@ public class Booking implements Deliverable{
      * TODO
      * @param status A string of the status
      */
-    public void updateStatus(String status) {
-        if (this.possibleStates.contains(status)) {
-            this.state = status;
-        } else {
-            throw new IllegalArgumentException("Not valid State");
-        }
+    public void updateStatus(BookingState status) {
+        this.state = status;
     }
     /**
      * Method called when the bikes are returned to the original provider
      * @return A BigDecimal containing the deposit to return to the customer
      */
     public BigDecimal providerReturn() {
-        updateStatus("Returned");
+        updateStatus(BookingState.RETURNED);
+        for(Bike bike: bikes) {
+            bike.updateStatus("Available");
+        }
         return this.deposit;
     }
     /**
@@ -103,7 +95,7 @@ public class Booking implements Deliverable{
      * @return A BigDecimal containing the deposit the partner should return to the customer
      */
     public BigDecimal partnerReturn() {
-        updateStatus("Awaiting pickup for return to provider");
+        updateStatus(BookingState.AWAITING_PROVIDER_RETURN_PICKUP);
         return this.deposit;
     }
     
@@ -120,7 +112,7 @@ public class Booking implements Deliverable{
     }
 
     // Getters and setters
-    public String getState() {
+    public BookingState getState() {
         return state;
     }
 
@@ -155,13 +147,23 @@ public class Booking implements Deliverable{
     @Override
     public void onPickup() {
         // TODO Auto-generated method stub
-        this.updateStatus("Being delivered");
+        if(this.state == BookingState.AWAITING_PROVIDER_RETURN_PICKUP) {
+            this.updateStatus(BookingState.BEINGDELIVEREDPROVIDER);
+        }
+        else {
+            this.updateStatus(BookingState.BEINGDELIVEREDCUSTOMER);
+        }
     }
 
     @Override
     public void onDropoff() {
         // TODO Auto-generated method stub
-        this.updateStatus("Delivered");
+        if(this.state == BookingState.BEINGDELIVEREDCUSTOMER) {
+            this.updateStatus(BookingState.DELIVERED);
+        }
+        else {
+            this.updateStatus(BookingState.RETURNED);
+        }
     }
     
     

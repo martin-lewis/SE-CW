@@ -1,0 +1,10 @@
+package uk.ac.ed.bikerental;
+
+public enum BookingState {
+    BOOKED,
+    BEINGDELIVEREDPROVIDER,
+    BEINGDELIVEREDCUSTOMER,
+    DELIVERED,
+    AWAITING_PROVIDER_RETURN_PICKUP,
+    RETURNED;
+}
