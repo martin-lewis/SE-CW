@@ -73,7 +73,7 @@ public class Booking implements Deliverable{
     /**
      * Allows for the status of the bike to be updated,
      * includes validation to ensure it is a valid state. Valid states are:
-     * TODO
+     * AVAILABLE, UNAVAILABLE
      * @param status A string of the status
      */
     public void updateStatus(BookingState status) {
@@ -146,7 +146,6 @@ public class Booking implements Deliverable{
 
     @Override
     public void onPickup() {
-        // TODO Auto-generated method stub
         if(this.state == BookingState.AWAITING_PROVIDER_RETURN_PICKUP) {
             this.updateStatus(BookingState.BEINGDELIVEREDPROVIDER);
         }
@@ -161,7 +160,6 @@ public class Booking implements Deliverable{
 
     @Override
     public void onDropoff() {
-        // TODO Auto-generated method stub
         if(this.state == BookingState.BEINGDELIVEREDCUSTOMER) {
             this.updateStatus(BookingState.WITHCUSTOMER);
         }

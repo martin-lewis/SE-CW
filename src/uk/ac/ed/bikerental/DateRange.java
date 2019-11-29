@@ -60,7 +60,6 @@ public class DateRange {
      * @return Boolean value true or false if it overlaps or not
      */
     public Boolean overlaps(DateRange other) {
-        // TODO: implement date range intersection checking
         if((this.end.isAfter(other.start) || this.end.isEqual(other.start)) 
                 && (this.end.isBefore(other.end) || this.end.isEqual(other.end))) {
             return true;
