@@ -59,7 +59,7 @@ public class MultiDayPricingPolicy implements PricingPolicy {
 
     @Override
     public void setDailyRentalPrice(BikeType bikeType, BigDecimal dailyPrice) {
-        pricing.put(bikeType, dailyPrice);
+        pricing.put(bikeType, dailyPrice); //Just adds the new daily price to the data structure
         
     }
     @Override

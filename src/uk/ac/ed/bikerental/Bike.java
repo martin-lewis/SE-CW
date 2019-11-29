@@ -30,7 +30,11 @@ public class Bike implements Comparable {
         this.status = BikeState.AVAILABLE;
         this.unavailabilities = new ArrayList<>();
     }
-    
+    /**
+     * An equals function for the bike classes, simply checks if the unique IDs are the same
+     * @param bike Another bike object to test if it is equal to this bike object
+     * @return
+     */
     public boolean equals(Bike bike) {
         return this.uniqueID == bike.uniqueID;
     }

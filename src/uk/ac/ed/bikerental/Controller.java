@@ -133,7 +133,12 @@ public class Controller {
         
         if (quotes.size() > 0) { //If there are some quotes
             return quotes; //they are returned
-        } /*else { //otherwise if there are none we look around other dates
+        } 
+        //NOTE: This section of code was written to implement the 3 days either side idea if a quote could
+        // not be found on the given date, but it turns out we don't need it so its been commented out in case
+        // it is needed to be implemented in the future
+        
+        /*else { //otherwise if there are none we look around other dates
             for (int i = -3; i < 4; i++) { //Runs through -3 to 3 inclusive representing the number of days we look either side of the original
                 if (i==0) {  //Skip a shift of 0 days as we have already looked at it
                     continue; //Moves to next i value

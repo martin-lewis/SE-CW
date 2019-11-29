@@ -47,9 +47,7 @@ public class Location {
     public String getAddress() {
         return address;
     }
-    
-    // You can add your own methods here
-    
+        
     /**
      * Gives a string representation of the location, consisting of the address, followed by the 
      * postcode, seperates by a space
